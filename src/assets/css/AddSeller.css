@@ -47,26 +47,6 @@
     display: flex;
     flex-direction: column;
 }
-
-.col {
-    width: 30rem;
-    padding: 2rem 0;
-    text-align: left;
-}
-
-.col label {
-    font-size: 1.2rem;
-    font-weight: 600;
-    font-family: var(--Poppins);
-}
-
-.col input {
-    width: 100%;
-    padding: 1rem 0;
-    border: none;
-    border-bottom: 1px solid #1E3C72;
-}
-
 .sellerBtn {
     cursor: pointer;
     margin-top: 4rem;

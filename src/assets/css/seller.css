@@ -1,0 +1,32 @@
+.seller .max_width {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sellerContainer {
+    width: 50%;
+}
+
+.sellerForm {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mintNftBtn {
+    cursor: pointer;
+    margin-top: 4rem;
+    padding: 0.5rem 8rem;
+    background: #1E3C72;
+    font-family: var(--Inter);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 44px;
+    color: #fff;
+    letter-spacing: 0.1rem;
+    border-radius: 10px;
+}

@@ -1,32 +1,11 @@
 import {useEffect, useState} from "react";
-import {useMetaMask} from "./hooks/useMetaMask";
 import logo from './assets/common/img/logo.svg';
 import './assets/css/AddSeller.css';
+import './assets/css/style.css';
 import {addSeller} from "./scripts/addSeller";
 
 export function AddSeller() {
     const [seller, setValue] = useState({'SellerAddress': '', 'SellerName': ''});
-    const [error, setError] = useState('');
-    const context = useMetaMask();
-    useEffect(() => {
-        // console.log(context.haveMetamask);
-        // console.log(context.accountAddress);
-
-    }, [context.accountAddress, context.haveMetamask]);
-
-    function errorPage() {
-        if (error === '') {
-            return '';
-        } else {
-            return (<div className="errorBox">
-                    <div className="max_width">
-
-                    </div>
-                </div>
-            );
-        }
-    }
-
     function handleChange(event) {
         setValue((value => ({
             ...value, [event.target.name]: event.target.value
@@ -63,8 +42,6 @@ export function AddSeller() {
                         <div className={'sellerBtn'} onClick={handleSubmit}>Add Seller</div>
                     </form>
                 </div>
-                {errorPage}
             </div>
-
         </section>)
 }
