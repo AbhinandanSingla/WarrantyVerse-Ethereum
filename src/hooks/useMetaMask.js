@@ -3,7 +3,6 @@ import {createContext, useContext, useEffect, useMemo, useState} from "react";
 
 const {ethereum} = window;
 export const MetaMaskContext = createContext({});
-
 export const MetaMaskProvider = ({children}) => {
     const [haveMetamask, sethaveMetamask] = useState(true);
     const [accountAddress, setAccountAddress] = useState('');
@@ -31,11 +30,15 @@ export const MetaMaskProvider = ({children}) => {
     };
     useEffect(() => {
         checkMetamaskAvailability().then(v => v);
-    },[])
+    }, [])
     const values = useMemo(() => ({
         accountAddress,
         haveMetamask,
-        accountBalance
+        accountBalance,
+        sethaveMetamask,
+        setAccountAddress,
+        setAccountBalance,
+        checkMetamaskAvailability
     }), [accountAddress, haveMetamask, accountBalance]);
     return <MetaMaskContext.Provider value={values}>{children}</MetaMaskContext.Provider>
 }
