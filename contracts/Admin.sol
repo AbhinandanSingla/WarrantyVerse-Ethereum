@@ -1,14 +1,10 @@
 pragma solidity ^0.8.1;
-
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Counters.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract Admin is Ownable {
     address[] private sellerList;
-
-    event fuckMsg(string msg);
 
     function checkSeller(address _sellerID) private view returns (bool){
         bool seller = false;
@@ -66,6 +62,33 @@ contract Seller is Ownable, Admin, ERC721URIStorage {
     function getAllUserNfts(address user) validateSeller(msg.sender)
     public view returns (NftData[] memory) {
         return sellerNfts[user];
+    }
+
+    function validateNFT(address user,uint _token)validateSeller(msg.sender)
+    public view returns(NftData memory){
+        for (uint i=0;i<sellerNfts[user].length;i++){
+            if(sellerNfts[user][i].id == _token){
+                return sellerNfts[user][i];
+            }
+        }
+        return NftData(0,0,address(0),0);
+    }
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override {
+        require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not token owner nor approved");
+        for (uint i=0;i<sellerNfts[from].length;i++){
+            if(sellerNfts[from][i].id==tokenId){
+                for(uint j=i;j<sellerNfts[from].length;j++){
+                    sellerNfts[from][j] = sellerNfts[from][j+1];
+                }
+                break;
+            }
+        }
+        _transfer(from, to, tokenId);
     }
 
 }

@@ -1,3 +1,17 @@
+.navbar .max_width {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    height: 2rem;
+    padding: 2rem;
+
+}
+
+.navbar .logo svg {
+    width: 4rem;
+}
+
 .addSeller .max_width {
     padding: 8rem;
     width: 100%;
@@ -47,6 +61,7 @@
     display: flex;
     flex-direction: column;
 }
+
 .sellerBtn {
     cursor: pointer;
     margin-top: 4rem;

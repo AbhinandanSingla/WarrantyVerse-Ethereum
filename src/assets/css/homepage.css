@@ -1,49 +1,91 @@
-.home .max_width {
+.navbar .max_width {
     width: 100%;
-    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    height: 2rem;
+    padding: 2rem;
+
+}
+
+.navbar .logo svg {
+    width: 4rem;
+}
+
+.navbar .info {
+    margin: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    font-family: var(--Poppins);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    color: #FFFFFF;
 }
 
-.home .logo img {
-    width: 12rem;
+.info svg {
+    margin-left: 1rem;
 }
 
-.logoText {
-    background: linear-gradient(90deg, #1E3C72 0%, #2A5298 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 3.5rem;
+.home .max_width {
+    padding: 4rem;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    background: #000;
+    justify-content: space-between;
+}
+
+.homeContainer {
+    width: 50rem;
+    margin-top: 10rem;
 }
 
 .main_heading {
-    padding: 1rem 0 0 0;
-    font-size: 6rem;
+    font-family: var(--Poppins);
+    font-style: normal;
     font-weight: 500;
-    background: linear-gradient(90deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.9) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    /*text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);*/
+    font-size: 40px;
+    line-height: 60px;
+    color: #FFFFFF;
 }
 
 .sub_heading {
-        font-size: 1.8rem;
+    font-family: var(--Poppins);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 60px;
+    color: hsla(0, 0%, 100%, 1);
+}
+
+.sub_heading span {
+    color: hsla(0, 62%, 58%, 1);
 }
 
 .ConnectMetaMask {
-    margin-top: 4rem;
-    padding: 1rem 7rem;
+    margin-top: 10rem;
+    padding: 2rem 6rem;
     display: inline-block;
-    border: 1px solid #2A5196;
-    background: linear-gradient(90deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.9) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-    font-weight: 600;
-    border-radius: 10px;
-    font-size: 2rem;
     cursor: pointer;
+    background: #C1C1C1;
+    border-radius: 12px;
+    font-family: var(--Poppins);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    color: #000000;
+}
+
+.ConnectMetaMask svg {
+    margin-left: 1rem;
 }

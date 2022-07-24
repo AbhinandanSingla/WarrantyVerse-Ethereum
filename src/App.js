@@ -2,9 +2,9 @@ import './App.css';
 import {useEffect, useMemo} from "react";
 import {useMetaMask} from "./hooks/useMetaMask";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-// import {AddSeller} from "./AddSeller";
+import {AddSeller} from "./AddSeller";
 import {ConnectMetamask} from "./ConnectMetamask";
-import {Seller} from "./Seller";
+// import {Seller} from "./Seller";
 
 function App() {
     const {accountAddress, haveMetamask, accountBalance} = useMetaMask();
@@ -17,8 +17,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path={'/'} element={<ConnectMetamask/>}/>
-                    {/*<Route path={'/addSeller'} element={<AddSeller/>}/>*/}
-                    <Route path={'/seller'} element={<Seller/>}/>
+                    <Route path={'/addSeller'} element={<AddSeller/>}/>
+                    {/*<Route path={'/seller'} element={<Seller/>}/>*/}
                 </Routes>
             </BrowserRouter>
             {/*<header className="App-header">*/}

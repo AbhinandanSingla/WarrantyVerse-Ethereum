@@ -6,12 +6,12 @@ const {createAlchemyWeb3} = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(API_URL);
 const contract = require("../artifacts/contracts/Admin.sol/Admin.json");
 const contractAddress = "0xB23242642Db28Ed3A04Fb8427875a71a9d47612b";
+const provider = new ethers.providers.Web3Provider(ethereum);
+const signer = provider.getSigner()
+const contracts = new ethers.Contract(contractAddress, contract.abi, signer);
 
 export async function addSeller(address) {
     // const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, "latest"); //get latest nonce
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const signer = provider.getSigner()
-    const contracts = new ethers.Contract(contractAddress, contract.abi, signer);
     try {
         const code = await contracts.addSeller(address);
         console.log(code);
@@ -45,4 +45,52 @@ export async function addSeller(address) {
     // value: BigNumber {_hex: '0x00', _isBigNumber: true}
     // wait: confirmations => {…}
     // [[Prototype]]: Object
+}
+
+export async function validateSeller(address, tokenID) {
+    // const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, "latest"); //get latest nonce
+    try {
+        const code = await contracts.validate(address, tokenID);
+        console.log(code);
+    } catch (err) {
+        console.log(Object.keys(err));
+        console.log(Object.values(err))
+        console.log(err.reason)
+    }
+}
+
+export async function getAllNfts(address) {
+    // const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, "latest"); //get latest nonce
+    try {
+        const code = await contracts.getAllUserNfts(address);
+        console.log(code);
+    } catch (err) {
+        console.log(Object.keys(err));
+        console.log(Object.values(err))
+        console.log(err.reason)
+    }
+}
+
+export async function mintWarranty(address, tokenURI, expireDate) {
+    // const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, "latest"); //get latest nonce
+    try {
+        const code = await contracts.mintWarrantyNFT(address, tokenURI, expireDate);
+        console.log(code);
+    } catch (err) {
+        console.log(Object.keys(err));
+        console.log(Object.values(err))
+        console.log(err.reason)
+    }
+}
+
+export async function transferFrom(address, to, tokenID) {
+    // const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, "latest"); //get latest nonce
+    try {
+        const code = await contracts.transferFrom(address, to, tokenID);
+        console.log(code);
+    } catch (err) {
+        console.log(Object.keys(err));
+        console.log(Object.values(err))
+        console.log(err.reason)
+    }
 }

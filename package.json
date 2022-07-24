@@ -8,10 +8,12 @@
   },
   "dependencies": {
     "@alch/alchemy-web3": "^1.1.7",
+    "@openzeppelin/contracts": "^4.7.1",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "dotenv": "^10.0.0",
+    "ethers": "^5.6.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
@@ -26,7 +28,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.1.0"
+    "@nomiclabs/hardhat-ethers": "^2.1.0",
+    "hardhat": "^2.10.1"
   },
   "resolutions": {
     "react-error-overlay": "6.0.9"
