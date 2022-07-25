@@ -1,4 +1,5 @@
 pragma solidity ^0.8.1;
+
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
@@ -48,30 +49,30 @@ contract Seller is Ownable, Admin, ERC721URIStorage {
 
     mapping(address => NftData[])private sellerNfts;
 
-    function mintWarrantyNFT(address recipient, string memory tokenURI,uint expireDate)
+    function mintWarrantyNFT(address recipient, string memory tokenURI, uint expireDate)
     public validateSeller(msg.sender) returns (uint)
     {
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
         _mint(recipient, newItemId);
         _setTokenURI(newItemId, tokenURI);
-        sellerNfts[recipient].push(NftData(newItemId,expireDate,msg.sender,block.timestamp));
+        sellerNfts[recipient].push(NftData(newItemId, expireDate, msg.sender, block.timestamp));
         return newItemId;
     }
 
-    function getAllUserNfts(address user) validateSeller(msg.sender)
+    function getAllUserNfts(address user)
     public view returns (NftData[] memory) {
         return sellerNfts[user];
     }
 
-    function validateNFT(address user,uint _token)validateSeller(msg.sender)
-    public view returns(NftData memory){
-        for (uint i=0;i<sellerNfts[user].length;i++){
-            if(sellerNfts[user][i].id == _token){
+    function validateNFT(address user, uint _token) validateSeller(msg.sender)
+    public view returns (NftData memory){
+        for (uint i = 0; i < sellerNfts[user].length; i++) {
+            if (sellerNfts[user][i].id == _token) {
                 return sellerNfts[user][i];
             }
         }
-        return NftData(0,0,address(0),0);
+        return NftData(0, 0, address(0), 0);
     }
 
     function transferFrom(
@@ -80,10 +81,10 @@ contract Seller is Ownable, Admin, ERC721URIStorage {
         uint256 tokenId
     ) public virtual override {
         require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not token owner nor approved");
-        for (uint i=0;i<sellerNfts[from].length;i++){
-            if(sellerNfts[from][i].id==tokenId){
-                for(uint j=i;j<sellerNfts[from].length;j++){
-                    sellerNfts[from][j] = sellerNfts[from][j+1];
+        for (uint i = 0; i < sellerNfts[from].length; i++) {
+            if (sellerNfts[from][i].id == tokenId) {
+                for (uint j = i; j < sellerNfts[from].length; j++) {
+                    sellerNfts[from][j] = sellerNfts[from][j + 1];
                 }
                 break;
             }

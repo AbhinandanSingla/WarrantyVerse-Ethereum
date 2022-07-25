@@ -1,10 +1,10 @@
-import logo from "./assets/common/img/logo.svg";
+import logo from "../assets/common/img/logo.svg";
 import {useState} from "react";
-import './assets/css/style.css';
-import './assets/css/seller.css';
+import style from '../assets/css/seller.module.css';
 
 export function Seller() {
     const [nftValues, setValue] = useState({'userAddress': '', 'userName': '', 'productNo': 0, 'productName': ''});
+
     function handleChange(event) {
         setValue((value => ({
             ...value, [event.target.name]: event.target.value
@@ -16,8 +16,8 @@ export function Seller() {
     }
 
     return (
-        <section className={'seller'}>
-            <div className="max_width">
+        <section className={style.seller}>
+            <div className={style.max_width}>
                 <div className="NFTContainer">
 
                 </div>

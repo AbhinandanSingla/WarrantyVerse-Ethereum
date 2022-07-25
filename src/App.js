@@ -2,12 +2,14 @@ import './App.css';
 import {useEffect, useMemo} from "react";
 import {useMetaMask} from "./hooks/useMetaMask";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AddSeller} from "./AddSeller";
-import {ConnectMetamask} from "./ConnectMetamask";
-// import {Seller} from "./Seller";
+import {AddSeller} from "./pages/AddSeller";
+import {ConnectMetamask} from "./pages/ConnectMetamask";
+import {Seller} from "./pages/Seller";
+import {Dashboard} from "./pages/Dashboard";
+import {User} from "./pages/user";
 
 function App() {
-    const {accountAddress, haveMetamask, accountBalance} = useMetaMask();
+    const {accountAddress, haveMetamask, accountBalance, login} = useMetaMask();
     useEffect(() => {
         console.log(accountAddress)
         console.log(haveMetamask)
@@ -18,13 +20,11 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<ConnectMetamask/>}/>
                     <Route path={'/addSeller'} element={<AddSeller/>}/>
-                    {/*<Route path={'/seller'} element={<Seller/>}/>*/}
+                    <Route path={'/seller'} element={<Seller/>}/>
+                    <Route path={'/dashboard'} element={<Dashboard/>}/>
+                    <Route path={'/user'} element={<User/>}/>
                 </Routes>
             </BrowserRouter>
-            {/*<header className="App-header">*/}
-            {/*    <img src={logo} className="App-logo" alt="logo"/>*/}
-            {/*    <div className="balance">ETH {accountBalance}</div>*/}
-            {/*</header>*/}
         </div>
     );
 }
