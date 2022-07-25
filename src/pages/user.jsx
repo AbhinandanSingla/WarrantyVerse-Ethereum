@@ -1,6 +1,5 @@
 import "../assets/css/user.css";
 import img from "../assets/common/img/user.png";
-import pic from "../assets/common/img/1.png";
 import {useMetaMask} from "../hooks/useMetaMask";
 import {contractAddress, contracts, web3} from "../scripts/contractScript";
 import {useEffect} from "react";
@@ -10,9 +9,8 @@ export function User() {
 
     async function getNfts() {
         const hmm = await contracts.getAllUserNfts(accountAddress);
-        console.log(hmm)
         let data = [];
-        for (var i of hmm) {
+        for (const i of hmm) {
             data.push(web3.alchemy.getNftMetadata(
                 {
                     contractAddress: contractAddress,
@@ -21,10 +19,7 @@ export function User() {
                 }
             ))
         }
-        const results = await Promise.all(data);
-        console.log(results)
-        console.log(results[0]["metadata"]["image"])
-        return results;
+        return await Promise.all(data);
     }
 
     useEffect(() => {
@@ -33,13 +28,13 @@ export function User() {
                 `<div class="card">
                         <img src=${value["metadata"]["image"]} alt=""/>
                         <div class="card_heading">
-                            Macbook
+                           ${value["title"]}
                         </div>
                         <div class="card_sub">
                             Product Name
                         </div>
                         <div class="card_serial">
-                            # Serial Number: <span>###########</span>
+                            # Serial Number: <span>${value["id"]["tokenId"]}</span>
                         </div>
                         <div class="expire">
                             <svg viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
