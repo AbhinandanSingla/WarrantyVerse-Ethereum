@@ -9,11 +9,11 @@ import {Dashboard} from "./pages/Dashboard";
 import {User} from "./pages/user";
 
 function App() {
-    const {accountAddress, haveMetamask, accountBalance, login} = useMetaMask();
+    const {accountAddress, haveMetamask} = useMetaMask();
     useEffect(() => {
         console.log(accountAddress)
         console.log(haveMetamask)
-    });
+    }, [accountAddress]);
     return (
         <div className="App">
             <BrowserRouter>

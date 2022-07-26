@@ -3,17 +3,12 @@ import img from '../assets/common/img/user.png';
 import {contracts} from "../scripts/contractScript";
 import {useEffect} from "react";
 import {useMetaMask} from "../hooks/useMetaMask";
+import {useLocation} from "react-router-dom";
 
 export function Dashboard() {
     const {accountAddress} = useMetaMask();
-
-    async function getUserNfts(user) {
-        const NFts = await contracts.getAllUserNfts(user);
-        console.log(NFts)
-    }
-
+    const location = useLocation();
     useEffect(() => {
-        getUserNfts(accountAddress).then();
     })
     return (<>
         <div className={style.navbar}>
