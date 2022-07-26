@@ -5,12 +5,15 @@ import style from '../assets/css/AddSeller.module.css';
 import {contracts, web3} from "../scripts/contractScript";
 import {useNavigate} from "react-router-dom";
 import {useMetaMask} from "../hooks/useMetaMask";
+import "../assets/css/progressBar.css";
 
 export function AddSeller() {
     const [seller, setValue] = useState({'SellerAddress': '', 'SellerName': ''});
     const [errMsg, setMsg] = useState('');
     const [err, setErr] = useState(false);
     const [trans, setTrans] = useState(false);
+    const [percentage, setPercentage] = useState(0)
+    const [load, setLoad] = useState(false)
     let {login} = useMetaMask();
     let navigate = useNavigate();
     useEffect(() => {
@@ -28,7 +31,6 @@ export function AddSeller() {
         setErr(false)
         setTrans(false)
         setMsg('')
-        // console.log(seller)
     }
 
     async function handleSubmit(event) {
@@ -36,50 +38,51 @@ export function AddSeller() {
         if (login && seller.SellerName !== '' && seller.SellerAddress.length > 0) {
             try {
                 const code = await contracts.addSeller(seller.SellerAddress)
+                setLoad(true)
+                setPercentage(50);
                 console.log(code)
                 console.log(Object.keys(code))
                 console.log(Object.values(code))
                 code.wait().then(val => {
                     console.log(val)
+                    setPercentage(100);
+                    setLoad(false)
                     setTrans(true)
+
                 });
             } catch (e) {
+
                 console.log(e)
                 console.log(Object.keys(e))
                 console.log(Object.values(e))
+                setLoad(false)
+                setErr(true);
                 switch (e.code) {
                     case 4001:
                         setMsg(e.message)
-                        setErr(true)
                         break;
                     case "UNSUPPORTED_OPERATION":
                         setMsg("Please Enter Correct Address")
-                        setErr(true)
                         break;
                     case "INVALID_ARGUMENT":
                         setMsg('Please Enter Correct Address')
-                        setErr(true)
                         break;
                     case "NETWORK_ERROR":
                         if (e.event === "changed") {
                             setMsg("Network Changed")
                         }
-                        setErr(true);
                         break;
                     case "UNPREDICTABLE_GAS_LIMIT":
                         switch (e.error.message) {
                             case "execution reverted: Seller is already in Seller List":
                                 setMsg("Seller is Already Registered");
-                                setErr(true);
                                 break;
                             case "execution reverted: Ownable: caller is not the owner":
                                 setMsg("Only admin can add Seller")
-                                setErr(true)
                                 break;
                         }
                         break;
                     default:
-                        setErr(true)
                         setMsg("Something went wrong")
                 }
             }
@@ -132,6 +135,16 @@ export function AddSeller() {
                             {err ? <div className={style.errMsg}>{errMsg}</div> : ''}
                             {trans ? <div className={style.transSuccess}>Seller Added</div> : ''}
 
+                            {load ? <div id="SellerProgress">
+                                <input type="checkbox" id="water"/>
+                                <label htmlFor="water">
+                                    <div id="fill" style={{width: `${percentage}%`}}></div>
+                                </label>
+                                <span>Please Wait ...</span>
+                                <span id="progress">{percentage}%</span>
+                            </div> : ''}
+
+
                         </div>
                         <form className={style.sellerForm}>
                             <div className={style.col}>
@@ -174,7 +187,6 @@ export function AddSeller() {
                             <div className={style.sellerBtn} onClick={handleSubmit}>Add Seller</div>
                         </form>
                     </div>
-                    <div id="lodadiAmination"></div>
                     <div className={style.background}>
                         <img src={img} alt=""/>
                     </div>

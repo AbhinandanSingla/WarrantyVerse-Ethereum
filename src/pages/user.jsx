@@ -4,10 +4,12 @@ import {useMetaMask} from "../hooks/useMetaMask";
 import {contractAddress, contracts, web3} from "../scripts/contractScript";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import '../assets/css/loading.css';
 
 export function User() {
     const {accountAddress} = useMetaMask();
     const [result, setResult] = useState([]);
+    const [load, setLoad] = useState(false);
     const navigate = useNavigate();
 
     async function getNfts() {
@@ -37,7 +39,7 @@ export function User() {
     }
 
     useEffect(() => {
-        getNfts().then(r => r);
+        getNfts().then(r => setLoad(true));
     }, [accountAddress])
     return (<>
         <div className="navbar">
@@ -86,8 +88,11 @@ export function User() {
                 </div>
                 <div className="container" id={'NftContainer'}>
                     {result.map(((value, index) => <div className="card" key={index}
-                                                        onClick={() =>navigate('/dashboard',{
-
+                                                        onClick={() => navigate('/dashboard', {
+                                                            state: {
+                                                                id: index,
+                                                                data: value
+                                                            }
                                                         })}>
                         <img src={value["metadata"]["image"]} alt=""/>
                         <div className="card_heading">
@@ -110,6 +115,7 @@ export function User() {
                     </div>))
                     }
                 </div>
+                {load ? '' : <div className={'ring'}>Loading<span></span></div>}
             </div>
         </div>
     </>);

@@ -45,6 +45,7 @@ export const MetaMaskProvider = ({children}) => {
     return <MetaMaskContext.Provider value={values}>{children}</MetaMaskContext.Provider>
 }
 export const useMetaMask = () => {
+
     const context = useContext(MetaMaskContext);
     if (context === undefined) {
         throw new Error('useMetaMask hook must be used with MetaMask Provider component')

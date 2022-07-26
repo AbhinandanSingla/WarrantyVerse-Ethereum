@@ -1,7 +1,7 @@
 import style from '../assets/css/dashboard.module.css'
 import img from '../assets/common/img/user.png';
 import {contracts} from "../scripts/contractScript";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useMetaMask} from "../hooks/useMetaMask";
 import {useLocation} from "react-router-dom";
 
@@ -9,7 +9,11 @@ export function Dashboard() {
     const {accountAddress} = useMetaMask();
     const location = useLocation();
     useEffect(() => {
-    })
+        console.log(location.state.data)
+        console.log(location.state.data['id']['tokenId'])
+        console.log(location.state.data['title'])
+        console.log(location.state.data['title'])
+    }, [])
     return (<>
         <div className={style.navbar}>
             <div className={style.max_width}>
@@ -63,14 +67,14 @@ export function Dashboard() {
                         Details
                     </div>
                     <div className={style.informationContainer}>
-                        <div className={`${style.info} ${style.div1}`}>XXXXXX
+                        <div className={`${style.info} ${style.div1}`}>{location.state.data['id']['tokenId']}
                             <span className={style.infoSpan}>Serial Number</span>
                         </div>
                         <div className={`${style.info} ${style.div2}`}>XXXXXX
                             <span className={style.infoSpan}>Serial Number</span>
                         </div>
                         <div className={`${style.info} ${style.div3}`}>XXXXXX<span
-                            className={style.infoSpan}>Serial Number</span></div>
+                            className={style.infoSpan}>Seller Address </span></div>
                         <div className={`${style.info} ${style.div4}`}>Apple<span
                             className={style.infoSpan}>Serial Number</span></div>
                         <div className={`${style.info} ${style.div5}`}>Macbook
