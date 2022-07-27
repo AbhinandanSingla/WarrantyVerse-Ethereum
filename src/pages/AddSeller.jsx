@@ -6,6 +6,8 @@ import {contracts, web3} from "../scripts/contractScript";
 import {useNavigate} from "react-router-dom";
 import {useMetaMask} from "../hooks/useMetaMask";
 import "../assets/css/progressBar.css";
+import sellerImg from '../assets/common/img/seller.png';
+import background from '../assets/common/img/backgroundColor.png';
 
 export function AddSeller() {
     const [seller, setValue] = useState({'SellerAddress': '', 'SellerName': ''});
@@ -187,8 +189,16 @@ export function AddSeller() {
                             <div className={style.sellerBtn} onClick={handleSubmit}>Add Seller</div>
                         </form>
                     </div>
-                    <div className={style.background}>
-                        <img src={img} alt=""/>
+                    <div className={style.informationCard}>
+                        <img src={sellerImg} alt=""/>
+                    </div>
+                    <div className={style.bgcontainer}>
+                        <div className={style.colorB}>
+                            <img src={background} alt=""/>
+                        </div>
+                        <div className={style.background}>
+                            <img src={img} alt=""/>
+                        </div>
                     </div>
                 </div>
             </section>

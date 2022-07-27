@@ -25,16 +25,19 @@ export function User() {
             console.log(hmm);
             let data = [];
             for (const i of hmm) {
-                data.push(web3.alchemy.getNftMetadata(
-                    {
-                        contractAddress: contractAddress,
-                        tokenId: parseInt(i["id"], 16).toString(),
-                        tokenType: "erc721",
-                    }
-                ))
+                let d1 =
+                    await web3.alchemy.getNftMetadata(
+                        {
+                            contractAddress: contractAddress,
+                            tokenId: parseInt(i["id"], 16).toString(),
+                            tokenType: "erc721",
+                        }
+                    )
+                data.push({...d1, ...i})
             }
             const hm = await Promise.all(data);
             setResult(hm)
+            console.log(hm)
         }
     }
 

@@ -25,6 +25,11 @@
 
 }
 
+.showNft img {
+    width: 30rem;
+    border-radius: 20px;
+}
+
 .dashboard .max_width {
     padding: 0 4rem;
     width: 100%;
@@ -32,6 +37,7 @@
     display: flex;
     align-items: center;
     background: #1A1C1E;
+    justify-content: space-around;
     box-shadow: 0px 4px 213px -106px rgba(255, 255, 255, 0.25);
 }
 
@@ -45,7 +51,7 @@
     grid-template-rows: repeat(4, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    font-size: 4rem;
+    font-size: 1rem;
     color: #ffffff;
     border-radius: 2rem;
 }
@@ -69,6 +75,7 @@
 
 .div1 {
     grid-area: 1 / 1 / 2 / 3;
+    font-size: 3rem;
 }
 
 .infoSpan {
@@ -133,7 +140,6 @@
 }
 
 .transNFT, .enterName {
-    padding: 1rem 6rem;
     font-size: 1.6rem;
     font-family: var(--Poppins);
     background: linear-gradient(98.49deg, #7759F3 -11.31%, #8E2AC3 76.26%);
@@ -141,7 +147,22 @@
     color: #FFFFFF;
 }
 
+.transNFT {
+    padding: 1rem 6rem;
+
+}
+
 .enterName {
+    width: 50%;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid #000000;
+}
+
+.enterName input {
+    color: #fff;
+    width: 100%;
+    background: none;
+    padding: 1.5rem 2rem;
+    border: none;
+
 }

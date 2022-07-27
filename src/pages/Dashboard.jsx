@@ -8,12 +8,13 @@ import {useLocation} from "react-router-dom";
 export function Dashboard() {
     const {accountAddress} = useMetaMask();
     const location = useLocation();
-    useEffect(() => {
-        console.log(location.state.data)
-        console.log(location.state.data['id']['tokenId'])
-        console.log(location.state.data['title'])
-        console.log(location.state.data['title'])
-    }, [])
+    const [tranferAddress, setAddress] = useState();
+
+    async function transferWarranty() {
+        contracts.transferFrom(accountAddress, tranferAddress, parseInt(location.state.data['id']['_hex'], 16)).then(val => console.log('TRansfers'));
+
+    }
+
     return (<>
         <div className={style.navbar}>
             <div className={style.max_width}>
@@ -67,13 +68,14 @@ export function Dashboard() {
                         Details
                     </div>
                     <div className={style.informationContainer}>
-                        <div className={`${style.info} ${style.div1}`}>{location.state.data['id']['tokenId']}
+                        <div
+                            className={`${style.info} ${style.div1}`}>{parseInt(location.state.data['id']['_hex'], 16)}
                             <span className={style.infoSpan}>Serial Number</span>
                         </div>
                         <div className={`${style.info} ${style.div2}`}>XXXXXX
                             <span className={style.infoSpan}>Serial Number</span>
                         </div>
-                        <div className={`${style.info} ${style.div3}`}>XXXXXX<span
+                        <div className={`${style.info} ${style.div3}`}>{location.state.data['seller']}<span
                             className={style.infoSpan}>Seller Address </span></div>
                         <div className={`${style.info} ${style.div4}`}>Apple<span
                             className={style.infoSpan}>Serial Number</span></div>
@@ -90,8 +92,11 @@ export function Dashboard() {
                         <div className={style.transNFT}>
                             Transfer NFT
                         </div>
-                        <div className={style.enterName}> Enter the name</div>
-                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <div className={style.enterName}><input type="text" placeholder={"Enter the Address"}
+                                                                onChange={(e) => setAddress(e.target.value)}
+                                                                name={'tranferAddress'}/></div>
+                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"
+                             onClick={transferWarranty}>
                             <rect x="0.5" y="0.5" width="37" height="37" rx="18.5" fill="#8E2AC3" stroke="white"/>
                             <path
                                 d="M27.5357 11.875L15.9427 23.6016L11.0581 18.6607L10.0938 19.6362L15.4605 25.0647L15.9427 25.5312L16.4248 25.0647L28.5 12.8504L27.5357 11.875Z"
@@ -100,8 +105,8 @@ export function Dashboard() {
 
                     </div>
                 </div>
-                <div className="showNft">
-
+                <div className={style.showNft}>
+                    <img src={location.state.data['metadata']['image']} alt=""/>
                 </div>
             </div>
         </div>

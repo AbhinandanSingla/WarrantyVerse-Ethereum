@@ -1,5 +1,6 @@
 import style from '../assets/css/homepage.module.css'
 import img from '../assets/common/img/home.png';
+import background from "../assets/common/img/background.png";
 import {useMetaMask} from "../hooks/useMetaMask";
 import {useNavigate} from "react-router-dom";
 
@@ -80,6 +81,7 @@ export function ConnectMetamask() {
                     <div className="img">
                         <img src={img} alt=""/></div>
                 </div>
+                <div className={style.background}><img src={background} alt=""/></div>
             </section>
         </>
     );

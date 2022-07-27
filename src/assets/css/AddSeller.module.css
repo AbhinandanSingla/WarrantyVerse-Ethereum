@@ -12,12 +12,21 @@
     width: 4rem;
 }
 
+.informationCard img {
+    width: 60rem;
+}
+
+.informationCard {
+    z-index: 10;
+}
+
 .addSeller .max_width {
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
     padding: 0 4rem;
+    justify-content: space-between;
     background: linear-gradient(136.31deg, #0D070F 14.16%, #1F102B 53.39%, #23193E 82.63%);
 }
 
@@ -47,9 +56,24 @@
 .background {
     position: absolute;
     left: 0;
+    top: 0;
 }
 
 .background img {
+    height: 100vh;
+
+}
+
+.bgcontainer {
+    z-index: 1;
+}
+
+.colorB img {
+    top: 0;
+    left: 0;
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
     height: 100vh;
 }
 

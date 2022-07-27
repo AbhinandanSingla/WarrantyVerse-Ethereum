@@ -56,12 +56,25 @@
     color: #FFFFFF;
     font-size: 4rem;
     font-weight: 600;
-    font-family: var(--Inter);
+    font-family: var(--Poppins);
     text-align: left;
 }
 
-.container {
+.heading {
+    font-size: 6rem;
+}
 
+.col1 {
+    text-align: left;
+}
+
+.sub_heading {
+    font-size: 1.6rem;
+    color: #fff;
+    font-family: var(--Poppins);
+}
+
+.container {
     padding: 4rem;
     display: flex;
     flex-wrap: wrap;
