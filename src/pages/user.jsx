@@ -15,6 +15,7 @@ export function User() {
     const [err, setErr] = useState(false);
 
     async function getNfts() {
+        setLoad(false);
         if (accountAddress === '') {
             return;
         }
@@ -25,24 +26,23 @@ export function User() {
             console.log(contracts)
             try {
                 const hmm = await contracts.getAllUserNfts(accountAddress);
-                console.log(hmm);
                 let data = [];
                 for (const i of hmm) {
                     let d1 =
                         await web3.alchemy.getNftMetadata(
                             {
                                 contractAddress: contractAddress,
-                                tokenId: parseInt(i["id"], 16).toString(),
+                                tokenId: parseInt(i["id"]['_hex'], 16).toString(),
                                 tokenType: "erc721",
                             }
                         )
                     data.push({...d1, ...i})
                 }
-                const hm = await Promise.all(data);
-                setResult(hm)
-                console.log(hm)
+                Promise.all(data).then((d) => {
+                    setResult(d)
+                    console.log(d);
+                }).catch(reason => console.log(reason));
             } catch (e) {
-
                 setErr(true)
                 switch (e.code) {
                     case "code":

@@ -8,22 +8,41 @@ export function MintNFT() {
     const {accountAddress} = useMetaMask();
     const [value, setValue] = useState();
     const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState('');
+    const [upload, setUploading] = useState(false);
 
     function handleChange(event) {
+        setErr(false)
         setValue((value => ({
             ...value, [event.target.name]: event.target.value
         })));
     }
 
     async function handleSubmit(event) {
+        setUploading(true);
         event.preventDefault();
         console.log(value)
         try {
             getMetaData().then(val => {
-                mintWarranty(val).then((val1) => console.log(val1));
+                console.log(val)
+                console.log(mintWarranty(val).then((val1) => {
+                    setUploading(false);
+                    console.log(val1);
+                }).catch(e => {
+                    setErr(true)
+                    switch (e.code) {
+                        case "UNPREDICTABLE_GAS_LIMIT":
+                            setErrMsg('Only Authorized people can mint warranty')
+                            break;
+                    }
+                    console.log(Object.keys(e));
+                    console.log(Object.values(e));
+                }))
             });
-        } catch (e){
-            console.log(e)
+        } catch (e) {
+            setErr(true);
+            console.log(Object.keys(e))
+            console.log(Object.values(e))
         }
 
     }
@@ -86,6 +105,9 @@ export function MintNFT() {
                         <div className="sub_heading">
                             Enter user Credentials to Mint Warranty
                         </div>
+                        {err ? < div className="error">
+                            {errMsg}
+                        </div> : ''}
                     </div>
                     <form className="form">
                         <div className="colForm">
@@ -106,11 +128,14 @@ export function MintNFT() {
                                    onChange={handleChange}/>
                         </div>
                         <div className="colForm">
-                            <div className="mintWarranty" onClick={handleSubmit}>
+                            <div className="mintWarranty"
+                                 style={upload ? {background: 'none', border: "1px solid #4f9cc0"} : {}}
+                                 onClick={handleSubmit}>
                                 Mint Warranty
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
