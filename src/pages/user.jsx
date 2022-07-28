@@ -5,12 +5,14 @@ import {contractAddress, contracts, web3} from "../scripts/contractScript";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import '../assets/css/loading.css';
+import error from '../assets/common/img/error.png';
 
 export function User() {
     const {accountAddress} = useMetaMask();
     const [result, setResult] = useState([]);
     const [load, setLoad] = useState(false);
     const navigate = useNavigate();
+    const [err, setErr] = useState(false);
 
     async function getNfts() {
         if (accountAddress === '') {
@@ -21,23 +23,35 @@ export function User() {
             console.log("Address is loading")
         } else {
             console.log(contracts)
-            const hmm = await contracts.getAllUserNfts(accountAddress);
-            console.log(hmm);
-            let data = [];
-            for (const i of hmm) {
-                let d1 =
-                    await web3.alchemy.getNftMetadata(
-                        {
-                            contractAddress: contractAddress,
-                            tokenId: parseInt(i["id"], 16).toString(),
-                            tokenType: "erc721",
-                        }
-                    )
-                data.push({...d1, ...i})
+            try {
+                const hmm = await contracts.getAllUserNfts(accountAddress);
+                console.log(hmm);
+                let data = [];
+                for (const i of hmm) {
+                    let d1 =
+                        await web3.alchemy.getNftMetadata(
+                            {
+                                contractAddress: contractAddress,
+                                tokenId: parseInt(i["id"], 16).toString(),
+                                tokenType: "erc721",
+                            }
+                        )
+                    data.push({...d1, ...i})
+                }
+                const hm = await Promise.all(data);
+                setResult(hm)
+                console.log(hm)
+            } catch (e) {
+
+                setErr(true)
+                switch (e.code) {
+                    case "code":
+                        console.log("hmm")
+                        break;
+                }
+                console.log(Object.keys(e))
+                console.log(Object.values(e))
             }
-            const hm = await Promise.all(data);
-            setResult(hm)
-            console.log(hm)
         }
     }
 
@@ -119,6 +133,9 @@ export function User() {
                     }
                 </div>
                 {load ? '' : <div className={'ring'}>Loading<span></span></div>}
+                {err ? <div className={'error'}><img src={error} alt=""/>
+                    <div className="errorHead">Not Warranty Found</div>
+                </div> : ''}
             </div>
         </div>
     </>);

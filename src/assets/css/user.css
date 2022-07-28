@@ -144,3 +144,13 @@
     color: #A2A3A4;
     padding: 0 0.6rem;
 }
+
+.error img {
+    width: 20rem;
+}
+
+.error .errorHead {
+    font-size: 2rem;
+    font-family: var(--Poppins);
+    color: #FFFFFF;
+}
