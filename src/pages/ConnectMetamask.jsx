@@ -67,7 +67,7 @@ export function ConnectMetamask() {
                             Welcome to WarrantyVerse
                         </div>
                         <div className={style.sub_heading}>
-                            Digitalize your <span>Warrenty</span></div>
+                            Digitize your <span>Warranty</span></div>
                         <div className={style.ConnectMetaMask} onClick={Connect}>Connect your Wallet
                             <svg width="23" height="20" viewBox="0 0 23 20" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">

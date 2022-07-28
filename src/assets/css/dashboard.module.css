@@ -42,10 +42,12 @@
 }
 
 .informationContainer {
+    height: 50rem;
+    background: linear-gradient(185.7deg, rgba(17, 39, 119, 0.8) -26.98%, rgba(23, 37, 85, 0.5875) 42.51%, rgba(206, 0, 255, 0.8) 128.93%, rgba(32, 56, 143, 0.270833) 161.15%, rgba(11, 14, 23, 0.166667) 180.13%, rgba(130, 24, 206, 0.570887) 190.54%, rgba(255, 255, 255, 0) 234.63%);
     margin-top: 2rem;
     padding: 2rem;
     border: 1px solid hsla(210, 1%, 64%, 1);
-    width: 50rem;
+    width: 55rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -73,16 +75,16 @@
 
 }
 
-.div1 {
-    grid-area: 1 / 1 / 2 / 3;
-    font-size: 3rem;
-}
-
 .infoSpan {
     font-family: var(--Inter);
     display: block;
-    font-size: 1rem;
+    font-size: 1.8rem;
     color: hsla(210, 1%, 64%, 1);
+}
+
+.div1 {
+    grid-area: 1 / 1 / 2 / 3;
+    font-size: 3rem;
 }
 
 .div1 span {
@@ -90,7 +92,10 @@
 }
 
 .info {
+    font-size: 1.5rem;
     padding: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .div2 {
@@ -99,7 +104,11 @@
 
 .div3 {
     border-left: 1px solid hsla(210, 1%, 64%, 1);
-
+    display: flex;
+    border-left: 1px solid hsla(210, 1%, 64%, 1);
+    grid-area: 2 / 2 / 3 / 3;
+    flex-direction: column;
+    justify-content: center;
     grid-area: 2 / 2 / 3 / 3;
 }
 

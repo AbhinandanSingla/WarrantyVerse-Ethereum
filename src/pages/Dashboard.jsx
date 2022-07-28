@@ -69,24 +69,24 @@ export function Dashboard() {
                     </div>
                     <div className={style.informationContainer}>
                         <div
-                            className={`${style.info} ${style.div1}`}>{parseInt(location.state.data['id']['_hex'], 16)}
+                            className={`${style.info} ${style.div1}`}>{102158}
+                            <span className={style.infoSpan}>Product Serial Number</span>
+                        </div>
+                        <div className={`${style.info} ${style.div2}`}>{parseInt(location.state.data['id']['_hex'], 16)}
                             <span className={style.infoSpan}>Serial Number</span>
                         </div>
-                        <div className={`${style.info} ${style.div2}`}>XXXXXX
-                            <span className={style.infoSpan}>Serial Number</span>
-                        </div>
-                        <div className={`${style.info} ${style.div3}`}>{location.state.data['seller']}<span
+                        <div className={`${style.infoSerial} ${style.div3}`}>{location.state.data['seller']}<span
                             className={style.infoSpan}>Seller Address </span></div>
                         <div className={`${style.info} ${style.div4}`}>Apple<span
-                            className={style.infoSpan}>Serial Number</span></div>
+                            className={style.infoSpan}>Company Name</span></div>
                         <div className={`${style.info} ${style.div5}`}>Macbook
                             <span
-                                className={style.infoSpan}>Serial Number</span></div>
+                                className={style.infoSpan}>Product Name</span></div>
                         <div className={`${style.info} ${style.div6}`}>12-04-22
-                            <span className={style.infoSpan}>Serial Number</span>
+                            <span className={style.infoSpan}>Purchase Date</span>
                         </div>
                         <div className={`${style.info} ${style.div7}`}>1 year<span
-                            className={style.infoSpan}>Serial Number</span></div>
+                            className={style.infoSpan}>Expire Date</span></div>
                     </div>
                     <div className={style.btnContainer}>
                         <div className={style.transNFT}>
