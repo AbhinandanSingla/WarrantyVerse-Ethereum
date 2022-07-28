@@ -85,7 +85,24 @@
     color: #fff;
 }
 
+.heading {
+    font-size: 5rem;
+    font-family: var(--montserrat);
+    color: #fff;
+    font-weight: 600;
+}
+
+.sub_heading {
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 500;
+    font-family: var(--Poppins);
+    text-align: left;
+    padding: 1rem;
+}
+
 .mintWarranty {
+    cursor: pointer;
     margin-top: 2rem;
     padding: 1.7rem 8rem;
     background: #4f9cc0;

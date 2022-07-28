@@ -7,6 +7,7 @@ import {contracts} from "../scripts/contractScript";
 export function MintNFT() {
     const {accountAddress} = useMetaMask();
     const [value, setValue] = useState();
+    const [err, setErr] = useState(false);
 
     function handleChange(event) {
         setValue((value => ({
@@ -15,16 +16,24 @@ export function MintNFT() {
     }
 
     async function handleSubmit(event) {
-        console.log(value)
         event.preventDefault();
+        console.log(value)
+        try {
+            getMetaData().then(val => {
+                mintWarranty(val).then((val1) => console.log(val1));
+            });
+        } catch (e){
+            console.log(e)
+        }
+
     }
 
     async function getMetaData() {
-        return;
+        return "https://firebasestorage.googleapis.com/v0/b/personaltestingbase.appspot.com/o/Metadata%2Fnft-metadata.json?alt=media&token=5f49d058-4de8-4e77-b670-64ccfd8d9e33";
     }
 
-    async function mintWarranty() {
-        await contracts.mintWarrantyNFT(value['userAddress'], value['metaData'], value['expireDate'])
+    async function mintWarranty(metaData) {
+        return await contracts.mintWarrantyNFT(value['userAddress'], metaData, value['expireDate']);
     }
 
     return (
@@ -97,7 +106,7 @@ export function MintNFT() {
                                    onChange={handleChange}/>
                         </div>
                         <div className="colForm">
-                            <div className="mintWarranty" onSubmit={handleSubmit}>
+                            <div className="mintWarranty" onClick={handleSubmit}>
                                 Mint Warranty
                             </div>
                         </div>
