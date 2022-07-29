@@ -49,44 +49,46 @@ export function Dashboard() {
                 </div>
                 <div className={style.loginContainer}>
                     <div className={style.serialNumber}>
-                        <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6.27883 6.93066H6.46372V6.74576V3.04598H8.42946V6.74576V6.93066H8.61436H12.204V8.65262H8.61436H8.42946V8.83751V12.5373H6.46372V8.83751V8.65262H6.27883H2.71273V6.93066H6.27883Z"
-                                fill="black" stroke="white" strokeWidth="0.369792"/>
-                        </svg>
-
-                        Serial Number
+                        {accountAddress}
                     </div>
                     <img src={img} alt=""/>
                 </div>
             </div>
         </div>
         <div className={style.dashboard}>
+            <div className={style.main_heading}>
+                Details
+            </div>
             <div className={style.max_width}>
-                <div className="dashboardContainer">
-                    <div className={style.main_heading}>
-                        Details
-                    </div>
+                <div className={style.showNft}>
+                    <img src={location.state.data['metadata']['image']} alt=""/>
+
+                </div>
+                <div className={style.dashboardContainer}>
                     <div className={style.informationContainer}>
                         <div
-                            className={`${style.info} ${style.div1}`}>{102158}
-                            <span className={style.infoSpan}>Product Serial Number</span>
+                            className={style.info_heading}>MacBookia <span>#{parseInt(location.state.data['id']['_hex'], 16)}</span>
                         </div>
-                        <div className={`${style.info} ${style.div2}`}>{parseInt(location.state.data['id']['_hex'], 16)}
-                            <span className={style.infoSpan}>Serial Number</span>
+                        <div className={style.infoCol}>
+                            <div className={style.label}>Product Name:</div>
+                            <div className={style.value}>Macbookia 's</div>
                         </div>
-                        <div className={`${style.infoSerial} ${style.div3}`}>{location.state.data['seller']}<span
-                            className={style.infoSpan}>Seller Address </span></div>
-                        <div className={`${style.info} ${style.div4}`}>Apple<span
-                            className={style.infoSpan}>Company Name</span></div>
-                        <div className={`${style.info} ${style.div5}`}>Macbook
-                            <span
-                                className={style.infoSpan}>Product Name</span></div>
-                        <div className={`${style.info} ${style.div6}`}>12-04-22
-                            <span className={style.infoSpan}>Purchase Date</span>
+                        <div className={style.infoCol}>
+                            <div className={style.label}>Product Serial:</div>
+                            <div className={style.value}>123456</div>
                         </div>
-                        <div className={`${style.info} ${style.div7}`}>1 year<span
-                            className={style.infoSpan}>Expire Date</span></div>
+                        <div className={style.infoCol}>
+                            <div className={style.label}>Company Name:</div>
+                            <div className={style.value}>Chunu bolpuria</div>
+                        </div>
+                        <div className={style.infoCol}>
+                            <div className={style.label}>Expire Date:</div>
+                            <div className={style.value}>2 mina baad</div>
+                        </div>
+                        <div className={style.infoCol}>
+                            <div className={style.label}>Seller Address:</div>
+                            <div className={style.value}>0X11513132123132131311311313213131132</div>
+                        </div>
                     </div>
                     <div className={style.btnContainer}>
                         <div className={style.transNFT}>
@@ -104,9 +106,6 @@ export function Dashboard() {
                         </svg>
 
                     </div>
-                </div>
-                <div className={style.showNft}>
-                    <img src={location.state.data['metadata']['image']} alt=""/>
                 </div>
             </div>
         </div>

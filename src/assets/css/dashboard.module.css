@@ -26,36 +26,31 @@
 }
 
 .showNft img {
-    width: 30rem;
+    width: 50rem;
     border-radius: 20px;
 }
 
-.dashboard .max_width {
+.showNft img:hover {
+    transform: scale(1.1);
+    transition: all 200ms ease-in-out;
+}
+
+.dashboard {
     padding: 0 4rem;
     width: 100%;
     height: 100vh;
-    display: flex;
-    align-items: center;
-    background: #1A1C1E;
-    justify-content: space-around;
     box-shadow: 0px 4px 213px -106px rgba(255, 255, 255, 0.25);
+    background: #1A1C1E;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
 
-.informationContainer {
-    height: 50rem;
-    background: linear-gradient(185.7deg, rgba(17, 39, 119, 0.8) -26.98%, rgba(23, 37, 85, 0.5875) 42.51%, rgba(206, 0, 255, 0.8) 128.93%, rgba(32, 56, 143, 0.270833) 161.15%, rgba(11, 14, 23, 0.166667) 180.13%, rgba(130, 24, 206, 0.570887) 190.54%, rgba(255, 255, 255, 0) 234.63%);
-    margin-top: 2rem;
-    padding: 2rem;
-    border: 1px solid hsla(210, 1%, 64%, 1);
-    width: 55rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    font-size: 1rem;
-    color: #ffffff;
-    border-radius: 2rem;
+.dashboard .max_width {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .loginContainer, .serialNumber {
@@ -75,77 +70,24 @@
 
 }
 
-.infoSpan {
-    font-family: var(--Inter);
-    display: block;
-    font-size: 1.8rem;
-    color: hsla(210, 1%, 64%, 1);
-}
-
-.div1 {
-    grid-area: 1 / 1 / 2 / 3;
-    font-size: 3rem;
-}
-
-.div1 span {
-    font-size: 1.6rem;
-}
-
-.info {
-    font-size: 1.5rem;
-    padding: 2rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.div2 {
-    grid-area: 2 / 1 / 3 / 2;
-}
-
-.div3 {
-    border-left: 1px solid hsla(210, 1%, 64%, 1);
-    display: flex;
-    border-left: 1px solid hsla(210, 1%, 64%, 1);
-    grid-area: 2 / 2 / 3 / 3;
-    flex-direction: column;
-    justify-content: center;
-    grid-area: 2 / 2 / 3 / 3;
-}
-
-.div4 {
-    grid-area: 3 / 1 / 4 / 2;
-}
-
-.div5 {
-    border-left: 1px solid hsla(210, 1%, 64%, 1);
-    grid-area: 3 / 2 / 4 / 3;
-}
-
-.div6 {
-    grid-area: 4 / 1 / 5 / 2;
-}
-
-.div7 {
-    border-left: 1px solid hsla(210, 1%, 64%, 1);
-
-    grid-area: 4 / 2 / 5 / 3;
+.dashboardContainer {
+    margin-bottom: 4rem;
 }
 
 .main_heading {
-    padding: 2rem;
     font-size: 3rem;
     font-family: var(--Inter);
     font-weight: 600;
     text-align: left;
     color: #FFFFFF;
-    margin-bottom: 2rem;
 }
 
 .btnContainer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 55rem;
-    margin-top: 3rem;
+    margin-top: 5rem;
 }
 
 .transNFT, .enterName {
@@ -174,4 +116,36 @@
     padding: 1.5rem 2rem;
     border: none;
 
+}
+
+.informationContainer {
+}
+
+.info_heading {
+    font-size: 5rem;
+    color: #fff;
+    font-weight: 800;
+    font-family: var(--roboto);
+    text-align: left;
+    padding: 6rem 0 3rem 0;
+}
+
+.infoCol {
+    display: flex;
+    padding: 1rem 0;
+}
+
+.label {
+    font-size: 1.8rem;
+    font-weight: 500;
+    font-family: var(--Poppins);
+    color: #fff;
+}
+
+.value {
+    padding: 0 3rem;
+    font-size: 2.3rem;
+    font-weight: 400;
+    color: #fff;
+    font-family: var(--roboto);
 }

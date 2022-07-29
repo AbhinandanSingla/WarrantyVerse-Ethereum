@@ -82,21 +82,30 @@
 }
 
 .card {
-    border-radius: 27px;
+    text-align: left;
+    border-radius: 6px;
     width: 30rem;
     background: #3F444E;
+    transition: all .2s ease-in-out;
+}
+
+.card:hover {
+    transform: translate(0, -10px) scale(1.1, 1.1);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }
 
 .card img {
-    border-radius: 27px;
+    border-radius: 6px;
     object-fit: cover;
     width: 100%;
-    height: 30rem;
+    height: 20rem;
 }
 
 
 .card_heading {
-    padding: 1rem 0 0 0;
+    padding: 0 1.5rem;
+
+    margin-top: 1rem;
     font-size: 1.5rem;
     font-family: var(--Inter);
     font-weight: 500;
@@ -104,23 +113,12 @@
 }
 
 .card_sub {
+    margin-bottom: 1rem;
+    padding: 0 1.5rem;
+
     font-size: 1rem;
     font-family: var(--Inter);
     font-weight: 400;
-    color: #A2A3A4;
-}
-
-.card_serial {
-    font-size: 1.5rem;
-    font-family: var(--Inter);
-    font-weight: 500;
-    color: #FFFFFF;
-    padding: 1rem;
-
-}
-
-.card_serial span {
-    font-size: 1rem;
     color: #A2A3A4;
 }
 
