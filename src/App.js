@@ -21,7 +21,6 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<ConnectMetamask/>}/>
                     <Route path={'/addSeller'} element={<AddSeller/>}/>
-                    <Route path={'/seller'} element={<Seller/>}/>
                     <Route path={'/dashboard'} element={<Dashboard/>}/>
                     <Route path={'/user'} element={<User/>}/>
                     <Route path={'/mintWarranty'} element={<MintNFT/>}/>

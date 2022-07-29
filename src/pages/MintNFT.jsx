@@ -3,13 +3,17 @@ import img from "../assets/common/img/user.png";
 import {useMetaMask} from "../hooks/useMetaMask";
 import {useState} from "react";
 import {contracts} from "../scripts/contractScript";
+import DatePicker from "react-datepicker";
+import bg from '../assets/common/img/hm1.png';
+import "react-datepicker/dist/react-datepicker.css";
 
 export function MintNFT() {
     const {accountAddress} = useMetaMask();
     const [value, setValue] = useState();
     const [err, setErr] = useState(false);
-    const [errMsg, setErrMsg] = useState('');
+    const [errMsg, setMsg] = useState('');
     const [upload, setUploading] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
 
     function handleChange(event) {
         setErr(false)
@@ -17,6 +21,7 @@ export function MintNFT() {
             ...value, [event.target.name]: event.target.value
         })));
     }
+
 
     async function handleSubmit(event) {
         setUploading(true);
@@ -28,13 +33,37 @@ export function MintNFT() {
                 console.log(mintWarranty(val).then((val1) => {
                     setUploading(false);
                     console.log(val1);
+
                 }).catch(e => {
                     setErr(true)
                     switch (e.code) {
-                        case "UNPREDICTABLE_GAS_LIMIT":
-                            setErrMsg('Only Authorized people can mint warranty')
+                        case 4001:
+                            setMsg(e.message)
                             break;
+                        case "UNSUPPORTED_OPERATION":
+                            setMsg("Please Enter Correct Address")
+                            break;
+                        case "INVALID_ARGUMENT":
+                            setMsg('Please Enter Correct Address')
+                            break;
+                        case "NETWORK_ERROR":
+                            if (e.event === "changed") {
+                                setMsg("Network Changed")
+                            }
+                            break;
+                        case "UNPREDICTABLE_GAS_LIMIT":
+                            console.log(e.error.message)
+                            switch (e.error.message) {
+                                case "execution reverted: Seller is not Authorized Seller":
+                                    setMsg('Only Authorized people can mint warranty')
+                                    break;
+
+                            }
+                            break;
+                        default:
+                            setMsg("Something went wrong")
                     }
+
                     console.log(Object.keys(e));
                     console.log(Object.values(e));
                 }))
@@ -95,7 +124,12 @@ export function MintNFT() {
                         <img src={img} alt=""/>
                     </div>
                 </div>
+                <div className="progressBar" style={upload ? {
+                    width: '100%'
+                } : {width: 0}}>
+                </div>
             </div>
+
             <div className="mintNft">
                 <div className="max_width">
                     <div className="col1">
@@ -124,8 +158,7 @@ export function MintNFT() {
                         <div className="colForm">
                             <input type="text" name="companyName" placeholder={"Enter Company Name"}
                                    onChange={handleChange}/>
-                            <input type="text" name="expireDate" placeholder={"Enter Expire Date"}
-                                   onChange={handleChange}/>
+                            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/>
                         </div>
                         <div className="colForm">
                             <div className="mintWarranty"
@@ -135,7 +168,9 @@ export function MintNFT() {
                             </div>
                         </div>
                     </form>
-
+                    <div className="background">
+                        <img src={bg} alt=""/>
+                    </div>
                 </div>
             </div>
         </div>

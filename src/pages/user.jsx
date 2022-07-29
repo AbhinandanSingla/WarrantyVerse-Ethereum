@@ -41,6 +41,9 @@ export function User() {
                 Promise.all(data).then((d) => {
                     setResult(d)
                     console.log(d);
+                    if (d.length === 0) {
+                        setErr(true);
+                    }
                 }).catch(reason => console.log(reason));
             } catch (e) {
                 setErr(true)
