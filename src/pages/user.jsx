@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import '../assets/css/loading.css';
 import error from '../assets/common/img/error.png';
+import background from '../assets/common/img/hm1.png'
 
 export function User() {
     const {accountAddress} = useMetaMask();

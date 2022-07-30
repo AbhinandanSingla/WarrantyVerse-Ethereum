@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../IPFS-uploading/.idea/IPFS-uploading.iml" filepath="$PROJECT_DIR$/../IPFS-uploading/.idea/IPFS-uploading.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/warranty-verse.iml" filepath="$PROJECT_DIR$/.idea/warranty-verse.iml" />
     </modules>
   </component>

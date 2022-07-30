@@ -25,6 +25,7 @@
 
 }
 
+
 .showNft img {
     width: 50rem;
     border-radius: 20px;
@@ -48,8 +49,10 @@
 }
 
 .dashboard .max_width {
+    position: relative;
     display: flex;
     align-items: center;
+    overflow: hidden;
     justify-content: space-around;
 }
 
@@ -147,5 +150,22 @@
     font-size: 2.3rem;
     font-weight: 400;
     color: #fff;
+    font-family: var(--roboto);
+}
+
+.transferMsg {
+    margin-top: 2rem;
+    text-align: left;
+    padding: 1rem 0;
+    font-size: 1.6rem;
+    color: green;
+    font-family: var(--roboto);
+}
+.err{
+    margin-top: 2rem;
+    text-align: left;
+    padding: 1rem 0;
+    font-size: 1.6rem;
+    color: red;
     font-family: var(--roboto);
 }

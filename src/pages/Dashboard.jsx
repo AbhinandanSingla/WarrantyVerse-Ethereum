@@ -9,10 +9,51 @@ export function Dashboard() {
     const {accountAddress} = useMetaMask();
     const location = useLocation();
     const [tranferAddress, setAddress] = useState();
+    const [errMsg, setMsg] = useState('');
+    const [err, setErr] = useState(false);
+    const [load, setLoad] = useState(false);
+    const [upload, setUpload] = useState(false);
 
     async function transferWarranty() {
-        contracts.transferFrom(accountAddress, tranferAddress, parseInt(location.state.data['id']['_hex'], 16)).then(val => console.log('TRansfers'));
+        setLoad(false)
+        contracts.transferFrom(accountAddress, tranferAddress, parseInt(location.state.data['id']['_hex'], 16))
+            .then(val => {
+                console.log(val)
+                val.wait().then(v => {
+                    setLoad(true);
+                })
+            }).catch((e) => {
+            console.log(Object.keys(e))
+            console.log(Object.values(e))
+            setLoad(false)
+            setErr(true);
+            switch (e.code) {
+                case 4001:
+                    setMsg(e.message)
+                    break;
+                case "UNSUPPORTED_OPERATION":
+                    setMsg("Please Enter Correct Address")
+                    break;
+                case "INVALID_ARGUMENT":
+                    setMsg('Please Enter Correct Address')
+                    break;
+                case "NETWORK_ERROR":
+                    if (e.event === "changed") {
+                        setMsg("Network Changed")
+                    }
+                    break;
 
+                case "UNPREDICTABLE_GAS_LIMIT":
+                    switch (e.reason) {
+                        case "execution reverted: ERC721: caller is not token owner nor approved":
+                            setMsg("Sorry You are not longer owner of this Warranty")
+                    }
+                    break;
+                default:
+                    setMsg("Something went wrong")
+            }
+
+        });
     }
 
     return (<>
@@ -62,7 +103,6 @@ export function Dashboard() {
             <div className={style.max_width}>
                 <div className={style.showNft}>
                     <img src={location.state.data['metadata']['image']} alt=""/>
-
                 </div>
                 <div className={style.dashboardContainer}>
                     <div className={style.informationContainer}>
@@ -80,6 +120,10 @@ export function Dashboard() {
                         <div className={style.infoCol}>
                             <div className={style.label}>Company Name:</div>
                             <div className={style.value}>Chunu bolpuria</div>
+                        </div>
+                        <div className={style.infoCol}>
+                            <div className={style.label}>Purchase Date:</div>
+                            <div className={style.value}>2 mina baad</div>
                         </div>
                         <div className={style.infoCol}>
                             <div className={style.label}>Expire Date:</div>
@@ -104,9 +148,14 @@ export function Dashboard() {
                                 d="M27.5357 11.875L15.9427 23.6016L11.0581 18.6607L10.0938 19.6362L15.4605 25.0647L15.9427 25.5312L16.4248 25.0647L28.5 12.8504L27.5357 11.875Z"
                                 fill="white"/>
                         </svg>
-
                     </div>
+                    {load ?
+                        <div className={style.transferMsg}>Warranty has Transfer to <span>{tranferAddress}</span></div>
+                        : ''}
+                    {err ? <div className={style.err}>{errMsg}</div>
+                        : ''}
                 </div>
+
             </div>
         </div>
     </>);
