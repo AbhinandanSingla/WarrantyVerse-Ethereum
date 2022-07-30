@@ -1,4 +1,4 @@
-import '../assets/css/mintNft.css';
+import style from '../assets/css/mintNft.module.css';
 import img from "../assets/common/img/user.png";
 import {useMetaMask} from "../hooks/useMetaMask";
 import {useState} from "react";
@@ -13,10 +13,15 @@ export function MintNFT() {
     const [err, setErr] = useState(false);
     const [errMsg, setMsg] = useState('');
     const [upload, setUploading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [uploadW, setUploadw] = useState(0);
     const [startDate, setStartDate] = useState(new Date());
 
     function handleChange(event) {
         setErr(false)
+        setUploading(false)
+        setSuccess(false)
+        setUploadw(0)
         setValue((value => ({
             ...value, [event.target.name]: event.target.value
         })));
@@ -30,10 +35,15 @@ export function MintNFT() {
         try {
             getMetaData().then(val => {
                 console.log(val)
-                console.log(mintWarranty(val).then((val1) => {
-                    setUploading(false);
-                    console.log(val1);
-
+                mintWarranty(val).then((val1) => {
+                    console.log(Object.keys(val1));
+                    setUploadw(50);
+                    val1.wait().then(val => {
+                        console.log(val);
+                        setUploadw(100);
+                        setSuccess(true)
+                        setUploading(false);
+                    })
                 }).catch(e => {
                     setErr(true)
                     switch (e.code) {
@@ -63,10 +73,10 @@ export function MintNFT() {
                         default:
                             setMsg("Something went wrong")
                     }
-
                     console.log(Object.keys(e));
                     console.log(Object.values(e));
-                }))
+                })
+
             });
         } catch (e) {
             setErr(true);
@@ -80,15 +90,22 @@ export function MintNFT() {
         return "https://firebasestorage.googleapis.com/v0/b/personaltestingbase.appspot.com/o/Metadata%2Fnft-metadata.json?alt=media&token=5f49d058-4de8-4e77-b670-64ccfd8d9e33";
     }
 
+    function toTimestamp(strDate) {
+        var datum = Date.parse(strDate);
+        return datum / 1000;
+    }
+
     async function mintWarranty(metaData) {
-        return await contracts.mintWarrantyNFT(value['userAddress'], metaData, value['expireDate']);
+        let time = toTimestamp(startDate)
+        console.log(time)
+        return await contracts.mintWarrantyNFT(value['userAddress'], metaData, time);
     }
 
     return (
         <div>
-            <div className="navbar">
-                <div className="max_width">
-                    <div className="logo">
+            <div className={style.navbar}>
+                <div className={style.max_width}>
+                    <div className={style.logo}>
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.1082 22.2087L11.9218 8.02948L28.2946 8.02948L20.1082 22.2087Z"
                                   fill="url(#paint0_linear_238_469)"/>
@@ -117,58 +134,60 @@ export function MintNFT() {
                         </svg>
                         <span>WarrantyVerse</span>
                     </div>
-                    <div className="loginContainer">
-                        <div className="serialNumber">
+                    <div className={style.loginContainer}>
+                        <div className={style.serialNumber}>
                             {accountAddress}
                         </div>
                         <img src={img} alt=""/>
                     </div>
                 </div>
-                <div className="progressBar" style={upload ? {
-                    width: '100%'
-                } : {width: 0}}>
+                <div className={style.progressBar} style={
+                    {width: `${uploadW}%`}}>
                 </div>
             </div>
 
-            <div className="mintNft">
-                <div className="max_width">
+            <div className={style.mintNft}>
+                <div className={style.max_width}>
                     <div className="col1">
-                        <div className="heading">
+                        <div className={style.heading}>
                             Welcome <span>Seller</span>
                         </div>
-                        <div className="sub_heading">
+                        <div className={style.sub_heading}>
                             Enter user Credentials to Mint Warranty
                         </div>
-                        {err ? < div className="error">
+                        {err ? < div className={style.error}>
                             {errMsg}
                         </div> : ''}
+                        {success ? < div className={style.mint}>
+                            "Warranty Minted
+                        </div> : ''}
                     </div>
-                    <form className="form">
-                        <div className="colForm">
+                    <form className={style.form}>
+                        <div className={style.colForm}>
                             <input type="text" name="username" placeholder={'Enter Username'} onChange={handleChange}/>
                         </div>
-                        <div className="colForm">
+                        <div className={style.colForm}>
                             <input type="text" name="userAddress" placeholder={'Enter User Address'}
                                    onChange={handleChange}/>
                         </div>
-                        <div className="colForm">
+                        <div className={style.colForm}>
                             <input type="text" name="productName" placeholder={'Enter Product Name'}
                                    onChange={handleChange}/>
                         </div>
-                        <div className="colForm">
+                        <div className={style.colForm}>
                             <input type="text" name="companyName" placeholder={"Enter Company Name"}
                                    onChange={handleChange}/>
                             <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/>
                         </div>
-                        <div className="colForm">
-                            <div className="mintWarranty"
+                        <div className={style.colForm}>
+                            <div className={style.mintWarranty}
                                  style={upload ? {background: 'none', border: "1px solid #4f9cc0"} : {}}
-                                 onClick={handleSubmit}>
+                                 onClick={upload ? null : handleSubmit}>
                                 Mint Warranty
                             </div>
                         </div>
                     </form>
-                    <div className="background">
+                    <div className={style.background}>
                         <img src={bg} alt=""/>
                     </div>
                 </div>

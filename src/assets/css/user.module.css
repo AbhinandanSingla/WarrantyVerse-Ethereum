@@ -66,6 +66,9 @@
 
 .col1 {
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .sub_heading {

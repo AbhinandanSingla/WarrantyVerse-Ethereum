@@ -8,6 +8,7 @@ import {Seller} from "./pages/Seller";
 import {Dashboard} from "./pages/Dashboard";
 import {User} from "./pages/user";
 import {MintNFT} from "./pages/MintNFT";
+import {Validate} from "./pages/validate";
 
 function App() {
     const {accountAddress, haveMetamask} = useMetaMask();
@@ -24,6 +25,7 @@ function App() {
                     <Route path={'/dashboard'} element={<Dashboard/>}/>
                     <Route path={'/user'} element={<User/>}/>
                     <Route path={'/mintWarranty'} element={<MintNFT/>}/>
+                    <Route path={'/validate'} element={<Validate/>}/>
                 </Routes>
             </BrowserRouter>
         </div>

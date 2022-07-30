@@ -1,0 +1,114 @@
+.validate .max_width {
+    width: 100%;
+    height: 100vh;
+    background: -webkit-linear-gradient(to right, #141e30, #243b55); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #141e30, #243b55); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3rem;
+}
+
+.heading {
+    font-size: 6rem;
+    font-family: var(--roboto);
+    font-weight: 600;
+    color: #fff;
+    text-align: left;
+}
+
+.sub_heading {
+    font-size: 1.5rem;
+    font-family: var(--Poppins);
+    font-weight: 400;
+    padding-bottom: 5rem;
+    text-align: left;
+    color: #fff;
+    opacity: 0.4;
+    padding-left: 1rem;
+}
+
+.nftImg img {
+    width: 30rem;
+}
+
+.formInput {
+    color: #fff;
+    width: 100%;
+    padding: 1rem;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #3F444E;
+    margin-bottom: 2rem;
+}
+
+.validateForm {
+    margin-bottom: 10rem;
+}
+
+.validateBtn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: #ffff;
+    cursor: pointer;
+    background: #1E3C72;
+    font-family: var(--Poppins);
+    border-radius: 6px;
+    margin-top: 3rem;
+}
+
+.showNft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+}
+
+.informationContainer {
+    margin-top: 5rem;
+    border: 4px solid #8738EB;
+    border-radius: 10px;
+    width: 40rem;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    align-items: center;
+}
+
+.infoCol {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8rem 0;
+}
+
+.label {
+    font-size: 2rem;
+    text-align: left;
+    padding: 2rem 0;
+    font-family: var(--Inter);
+    color: #61dafb;
+}
+
+.infoCon {
+    display: flex;
+    align-items: center;
+}
+
+.value {
+    padding: 2rem 0;
+    text-align: right;
+    margin-left: 2rem;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #fff000;
+    font-family: var(--Inter);
+}
+
+.Validated {
+    font-size: 2rem;
+    font-family: var(--Poppins);
+    font-weight: 400;
+    color: rgba(35, 164, 44, 0.78);
+}

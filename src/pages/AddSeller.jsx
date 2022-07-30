@@ -53,7 +53,6 @@ export function AddSeller() {
 
                 });
             } catch (e) {
-
                 console.log(e)
                 console.log(Object.keys(e))
                 console.log(Object.values(e))

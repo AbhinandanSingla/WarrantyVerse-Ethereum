@@ -159,3 +159,10 @@
 .sellerImg {
     width: 30rem;
 }
+
+.mint {
+    font-size: 1.5rem;
+    font-family: var(--roboto);
+    color: green;
+    text-align: center;
+}
