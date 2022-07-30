@@ -4,18 +4,19 @@ import {useMetaMask} from "./hooks/useMetaMask";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {AddSeller} from "./pages/AddSeller";
 import {ConnectMetamask} from "./pages/ConnectMetamask";
-import {Seller} from "./pages/Seller";
 import {Dashboard} from "./pages/Dashboard";
 import {User} from "./pages/user";
 import {MintNFT} from "./pages/MintNFT";
 import {Validate} from "./pages/validate";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function App() {
     const {accountAddress, haveMetamask} = useMetaMask();
     useEffect(() => {
-        console.log(accountAddress)
-        console.log(haveMetamask)
-    }, [accountAddress]);
+        AOS.init();
+        AOS.refresh();
+    }, []);
     return (
         <div className="App">
             <BrowserRouter>

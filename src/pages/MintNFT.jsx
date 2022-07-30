@@ -15,7 +15,8 @@ export function MintNFT() {
     const [upload, setUploading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [uploadW, setUploadw] = useState(0);
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState();
+    const [purchaseDate, setPurschaseDate] = useState();
 
     function handleChange(event) {
         setErr(false)
@@ -149,10 +150,13 @@ export function MintNFT() {
             <div className={style.mintNft}>
                 <div className={style.max_width}>
                     <div className="col1">
-                        <div className={style.heading}>
+                        <div className={style.heading} data-aos="fade-up" data-aos-duration="700"
+                             data-aos-easing="ease">
                             Welcome <span>Seller</span>
                         </div>
-                        <div className={style.sub_heading}>
+                        <div className={style.sub_heading} data-aos="fade-up" data-aos-duration="500"
+                             data-aos-delay="300"
+                             data-aos-easing="ease">
                             Enter user Credentials to Mint Warranty
                         </div>
                         {err ? < div className={style.error}>
@@ -162,7 +166,9 @@ export function MintNFT() {
                             "Warranty Minted
                         </div> : ''}
                     </div>
-                    <form className={style.form}>
+                    <form className={style.form} data-aos="fade-up" data-aos-duration="800"
+                          data-aos-delay="300"
+                          data-aos-easing="ease">
                         <div className={style.colForm}>
                             <input type="text" name="username" placeholder={'Enter Username'} onChange={handleChange}/>
                         </div>
@@ -177,8 +183,14 @@ export function MintNFT() {
                         <div className={style.colForm}>
                             <input type="text" name="companyName" placeholder={"Enter Company Name"}
                                    onChange={handleChange}/>
-                            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/>
                         </div>
+                        <div className={style.colForm}>
+                            <DatePicker selected={purchaseDate} onChange={(date) => setPurschaseDate(date)}
+                                        placeholderText="Purchase date"/>
+                            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}
+                                        placeholderText="Expire date"/>
+                        </div>
+
                         <div className={style.colForm}>
                             <div className={style.mintWarranty}
                                  style={upload ? {background: 'none', border: "1px solid #4f9cc0"} : {}}

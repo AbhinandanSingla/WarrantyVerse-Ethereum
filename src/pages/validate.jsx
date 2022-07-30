@@ -1,29 +1,58 @@
 import '../assets/css/validate.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import img from '../assets/common/img/1.png';
-import {contracts} from "../scripts/contractScript";
+import {contractAddress, contracts, web3} from "../scripts/contractScript";
+import err from '../assets/common/img/error.png';
 
 export function Validate() {
-    const [value, setValue] = useState({});
+    const [value, setValue] = useState({'tokenID': '', 'userAddress': ''});
+    const [bool, setBool] = useState(false);
+    const [warranty, setWarranty] = useState({});
+    const [found, setFound] = useState(false);
 
     function handleChange(event) {
-        setValue(...event.target.name, ...event.target.value);
+        setFound(false);
+        setValue((val) => ({...val, [event.target.name]: event.target.value}));
+        console.log(value)
+    }
+
+    async function getWarranty() {
+        await contracts.validateNFT(value.userAddress, parseInt(value.tokenID)).then(async v => {
+            let data = {};
+            if (v) {
+                web3.alchemy.getNftMetadata(
+                    {
+                        contractAddress: contractAddress,
+                        tokenId: value.tokenID.toString(),
+                        tokenType: "erc721",
+                    }
+                ).then(d => setWarranty((val) => ({...val, ...d})))
+                console.log(data)
+                return data;
+            } else {
+                setBool(false);
+                setFound(true);
+            }
+        })
     }
 
     function validateWarranty() {
-        contracts.validateNFT(value.userAddress, parseInt(value.token)).then(v => console.log(v))
+        getWarranty().then(r => r);
     }
 
-    function submit() {
+    useEffect(() => {
+        if (Object.keys(warranty).length !== 0) {
+            console.log(warranty)
+            setBool(true);
+        }
 
-    }
-
+    }, [warranty])
     return (<>
         <div className="validate">
             <div className="max_width">
-                <div className="showNft">
+                {bool ? <div className="showNft">
                     <div className="nftImg">
-                        <img src={img} alt=""/>
+                        <img src={warranty['metadata']['image']} alt=""/>
                     </div>
                     <div className="informationContainer">
                         <div className="infoCon">
@@ -47,7 +76,11 @@ export function Validate() {
 
 
                     </div>
-                </div>
+                </div> : ""}
+                {found ? <div className="notFound">
+                    <div className="nfheading">Warranty Not Found</div>
+                    <img src={err} alt=""/>
+                </div> : ""}
                 <div className="formContainer">
                     <div className="heading">
                         Welcome Seller
@@ -58,8 +91,8 @@ export function Validate() {
                     <form className="validateForm">
                         <input type="text" className="formInput" placeholder={"UserAddress"} name={"userAddress"}
                                value={value.userAddress} onChange={handleChange}/>
-                        <input type="text" className="formInput" placeholder={"Token Id"} name={'token'}
-                               value={value.token} onChange={handleChange}/>
+                        <input type="text" className="formInput" placeholder={"Token Id"} name={'tokenID'}
+                               value={value.tokenID} onChange={handleChange}/>
                         <div className="validateBtn" onClick={validateWarranty}>Validate Warranty</div>
                     </form>
                 </div>

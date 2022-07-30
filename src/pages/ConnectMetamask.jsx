@@ -62,7 +62,8 @@ export function ConnectMetamask() {
             </section>
             <section className={style.home}>
                 <div className={style.max_width}>
-                    <div className={style.homeContainer}>
+                    <div className={style.homeContainer} data-aos="fade-right" data-aos-easing="ease"
+                         data-aos-duration="700">
                         <div className={style.main_heading}>
                             Welcome to WarrantyVerse
                         </div>
@@ -78,7 +79,8 @@ export function ConnectMetamask() {
                             </svg>
                         </div>
                     </div>
-                    <div className="img">
+                    <div data-aos="fade-left" data-aos-easing="ease"
+                         data-aos-duration="700" className="img">
                         <img src={img} alt=""/></div>
                 </div>
                 <div className={style.background}><img src={background} alt=""/></div>

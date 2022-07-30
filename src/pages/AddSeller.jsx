@@ -127,7 +127,7 @@ export function AddSeller() {
             <section className={style.addSeller}>
                 <div className={style.max_width}>
                     <div className={style.sellerContainer}>
-                        <div className={style.headContainer}>
+                        <div className={style.headContainer} data-aos="fade-up" data-aos-duration="500">
                             <div className={style.seller_heading}>Welcome to WarrantyVerse</div>
                             <div className={style.sub_heading}>Please register if you don't have an account and login if
                                 you
@@ -148,7 +148,7 @@ export function AddSeller() {
 
                         </div>
                         <form className={style.sellerForm}>
-                            <div className={style.col}>
+                            <div className={style.col} data-aos="fade-up" data-aos-duration="500" data-aos-delay="200">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -163,7 +163,7 @@ export function AddSeller() {
                                 <input type="text" value={seller.SellerName} onChange={handleChange} name={'SellerName'}
                                        id={'SellerName'} placeholder={'Seller Name'}/>
                             </div>
-                            <div className={style.col}>
+                            <div className={style.col} data-aos="fade-up" data-aos-duration="500" data-aos-delay="300">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -185,11 +185,61 @@ export function AddSeller() {
                                        id={'SellerAddress'}
                                        name={'SellerAddress'} placeholder={"Seller Address"}/>
                             </div>
-                            <div className={style.sellerBtn} onClick={handleSubmit}>Add Seller</div>
+                            <div className={style.sellerBtn} onClick={handleSubmit} data-aos="fade-up"
+                                 data-aos-duration="500" data-aos-delay="400">Add Seller
+                            </div>
                         </form>
                     </div>
                     <div className={style.informationCard}>
-                        <img src={sellerImg} alt=""/>
+                        <img src={sellerImg} alt="" data-aos="fade-up" data-aos-duration="500"
+                             data-aos-easing="ease-in-back"/>
+                        <div className={style.feature}>
+                            <div className={style.featureItem} data-aos="fade-up" data-aos-duration="500"
+                                 data-aos-delay="100"
+                                 data-aos-easing="ease">
+                                <svg viewBox="0 0 48 48" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" fill="#01E8E0"
+                                          stroke="white"/>
+                                    <path
+                                        d="M34.7819 15L20.1381 29.8125L13.9681 23.5714L12.75 24.8036L19.529 31.6607L20.1381 32.25L20.7472 31.6607L36 16.2321L34.7819 15Z"
+                                        fill="white"/>
+                                </svg>
+                                <span>Add Seller Just by Entering their Address and Company Name</span>
+                            </div>
+                            <div className={style.featureItem} data-aos="fade-up" data-aos-duration="500"
+                                 data-aos-delay="200"
+                                 data-aos-easing="ease">
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" fill="#01E8E0"
+                                          stroke="white"/>
+                                    <path
+                                        d="M34.7819 15L20.1381 29.8125L13.9681 23.5714L12.75 24.8036L19.529 31.6607L20.1381 32.25L20.7472 31.6607L36 16.2321L34.7819 15Z"
+                                        fill="white"/>
+                                </svg>
+                                <span>Seller can Mint warranty of Products without any hustle</span>
+                            </div>
+                            <div className={style.featureItem} data-aos="fade-up" data-aos-duration="500"
+                                 data-aos-delay="300"
+                                 data-aos-easing="ease">
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" fill="#01E8E0"
+                                          stroke="white"/>
+                                    <path
+                                        d="M34.7819 15L20.1381 29.8125L13.9681 23.5714L12.75 24.8036L19.529 31.6607L20.1381 32.25L20.7472 31.6607L36 16.2321L34.7819 15Z"
+                                        fill="white"/>
+                                </svg>
+                                <span>User can see their warranty cards</span>
+                            </div>
+
+
+                        </div>
+                        <div className={style.benfits} data-aos="fade-up" data-aos-duration="500"
+                             data-aos-delay="300"
+                             data-aos-easing="ease">Benefits
+                        </div>
                     </div>
                     <div className={style.bgcontainer}>
                         <div className={style.colorB}>
