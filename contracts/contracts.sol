@@ -46,17 +46,18 @@ contract Seller is Ownable, Admin, ERC721URIStorage {
         uint expireDate;
         address seller;
         uint generatedDate;
+        string imageHash;
     }
 
     mapping(address => NftData[])private sellerNfts;
-    function mintWarrantyNFT(address recipient, string memory tokenURI,uint expireDate)
+    function mintWarrantyNFT(address recipient, string memory tokenURI,uint expireDate,string memory image)
     public validateSeller(msg.sender) returns (uint)
     {
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
         _mint(recipient, newItemId);
         _setTokenURI(newItemId, tokenURI);
-        sellerNfts[recipient].push(NftData(newItemId,expireDate,msg.sender,block.timestamp));
+        sellerNfts[recipient].push(NftData(newItemId,expireDate,msg.sender,block.timestamp,image));
         return newItemId;
     }
 
@@ -91,16 +92,25 @@ contract Seller is Ownable, Admin, ERC721URIStorage {
         _transfer(from, to, tokenId);
     }
     function burnWarranty(address user,uint token) public onlyOwner{
-        _burn(token);
         for(uint i = 0;i<sellerNfts[user].length;i++){
             if(sellerNfts[user][i].id==token){
-                sellerNfts[user][i] = sellerNfts[user][sellerNfts[user].length-1];
+                if(sellerNfts[user][i].expireDate>block.timestamp){
+                    _burn(token);
+                }
+                break;
+            }
+        }
+        for(uint j = 0;j<sellerNfts[user].length;j++){
+            if(sellerNfts[user][j].id==token){
+                sellerNfts[user][j] = sellerNfts[user][sellerNfts[user].length-1];
                 sellerNfts[user].pop();
                 break;
             }
         }
     }
 }
+
+
 
 
 

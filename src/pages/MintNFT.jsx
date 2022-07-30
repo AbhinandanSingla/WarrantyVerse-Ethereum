@@ -16,7 +16,7 @@ export function MintNFT() {
     const [success, setSuccess] = useState(false);
     const [uploadW, setUploadw] = useState(0);
     const [startDate, setStartDate] = useState();
-    const [purchaseDate, setPurschaseDate] = useState();
+    const [purchaseDate, setPurchasedDate] = useState();
 
     function handleChange(event) {
         setErr(false)
@@ -88,6 +88,7 @@ export function MintNFT() {
     }
 
     async function getMetaData() {
+
         return "https://firebasestorage.googleapis.com/v0/b/personaltestingbase.appspot.com/o/Metadata%2Fnft-metadata.json?alt=media&token=5f49d058-4de8-4e77-b670-64ccfd8d9e33";
     }
 
@@ -185,7 +186,7 @@ export function MintNFT() {
                                    onChange={handleChange}/>
                         </div>
                         <div className={style.colForm}>
-                            <DatePicker selected={purchaseDate} onChange={(date) => setPurschaseDate(date)}
+                            <DatePicker selected={purchaseDate} onChange={(date) => setPurchasedDate(date)}
                                         placeholderText="Purchase date"/>
                             <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}
                                         placeholderText="Expire date"/>
@@ -207,9 +208,3 @@ export function MintNFT() {
         </div>
     );
 }
-
-// username
-// user adddress
-// product name
-// product company
-// expireDate

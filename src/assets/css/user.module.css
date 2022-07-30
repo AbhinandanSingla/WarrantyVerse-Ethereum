@@ -128,7 +128,6 @@
 .expire {
     display: flex;
     justify-content: center;
-    align-items: end;
     padding: 1rem;
     color: #FFFFFF;
     font-size: 1.5rem;
