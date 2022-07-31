@@ -22,6 +22,13 @@ export const contractAddress = <Contract Address>;
 * Now run command ```npm install``` to install all dependencies
 * Start dapp with ``npm start``
 
+## AutoBurn Warranty Setup
+
+* Replace contract Address in AutoburnWarranty/index.js with your contract address
+* `node index.js` to start server
+
+### Web Preview
+
 > Connecting Page
 
 #### For connecting metamask wallet
