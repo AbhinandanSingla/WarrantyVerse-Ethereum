@@ -10,7 +10,7 @@ const axios = require('axios');
 const baseURL = `https://eth-goerli.g.alchemy.com/v2/BSt1drEvhViEB11PoABz805f8Oz6kVSY/getNFTsForCollection`;
 const owner = `https://eth-goerli.g.alchemy.com/v2/BSt1drEvhViEB11PoABz805f8Oz6kVSY/getOwnersForToken`;
 const withMetadata = "true";
-const contract = require("./artifacts/contracts/contracts.sol/Seller.json")
+const contract = require("../artifacts/contracts/contracts.sol/Seller.json")
 const nftContract = new web3.eth.Contract(contract.abi, contractAddress);
 const PUBLIC_KEY = process.env.PUBLIC_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -58,7 +58,7 @@ async function burnWarranty(user, token) {
 }
 
 var interval = setInterval(function () {
-    console.log("Running ")
+    console.log("Server is Running Successfully")
     axios(config)
         .then(async response => {
             let data = response.data;
