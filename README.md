@@ -14,12 +14,44 @@ npx hardhat run src/scripts/deploy.js --network goerli
 ```
 
 * Copy the address and replace it with contractAddress in contractScripts.js
+
 ```
 export const contractAddress = <Contract Address>;
 ```
+
 * Now run command ```npm install``` to install all dependencies
 * Start dapp with ``npm start``
 
+> Connecting Page
 
->[ConnectingPage](https://localhost:3000)
-![alt text](https://github.com/[abhinandan]/[warranty-verse]/blob/[branch]/image.jpg?raw=true)
+#### For connecting metamask wallet
+
+# ![connecting Page](https://raw.githubusercontent.com/AbhinandanSingla/warranty-verse/master/blob/images/connectingPage.png)
+
+#### For adding seller so that he can mint Warranty
+
+> Owner Page
+
+# ![addSeller Page](https://raw.githubusercontent.com/AbhinandanSingla/warranty-verse/master/blob/images/addSeller.png)
+
+#### After getting authorized now seller can mint warranty by filling following details
+
+> Seller page
+
+# ![mint warranty](https://raw.githubusercontent.com/AbhinandanSingla/warranty-verse/master/blob/images/mintWarranty.png)
+
+> Validate Warranty
+
+##### (Only seller can Validate the warranty)
+
+# ![Validate](https://raw.githubusercontent.com/AbhinandanSingla/warranty-verse/master/blob/images/validate.png)
+
+# ![validated](https://raw.githubusercontent.com/AbhinandanSingla/warranty-verse/master/blob/images/validatProduct.png)
+
+> ### User pages
+
+# ![user](https://raw.githubusercontent.com/AbhinandanSingla/warranty-verse/master/blob/images/user.png)
+
+All Minted Warranty can viewed by user
+
+# ![Dashboard](https://raw.githubusercontent.com/AbhinandanSingla/warranty-verse/master/blob/images/dashboard.png)
