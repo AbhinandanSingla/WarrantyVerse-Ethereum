@@ -79,7 +79,7 @@ export function MintNFT() {
                     const metadata = {
                         contentType: 'application/json',
                     };
-                    var storageRef = ref(storage, '/metaData/metaData.json');
+                    var storageRef = ref(storage, `/metaData/${value["productName"]}${value["expireDate"]}.json`);
                     var blob = new Blob([JSON.stringify(data)], {type: "application/json"})
                     const uploadTask = uploadBytesResumable(storageRef, blob, metadata);
 

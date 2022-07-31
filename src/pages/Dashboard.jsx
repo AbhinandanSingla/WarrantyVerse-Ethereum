@@ -4,7 +4,6 @@ import {contracts} from "../scripts/contractScript";
 import {useEffect, useState} from "react";
 import {useMetaMask} from "../hooks/useMetaMask";
 import {useLocation} from "react-router-dom";
-import {parse} from "dotenv";
 
 export function Dashboard() {
     const {accountAddress} = useMetaMask();
@@ -16,7 +15,6 @@ export function Dashboard() {
     const [upload, setUpload] = useState(false);
 
     async function transferWarranty() {
-
         setLoad(false)
         contracts.transferFrom(accountAddress, tranferAddress, parseInt(location.state.data['id']['_hex'], 16))
             .then(val => {
