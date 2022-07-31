@@ -7,7 +7,7 @@
 /src/config.js
 # testing
 /coverage
-
+package-lock.json
 # production
 /build
 
