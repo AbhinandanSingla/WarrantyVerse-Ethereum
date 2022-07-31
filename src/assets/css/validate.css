@@ -67,8 +67,11 @@
     justify-content: center;
     height: 100vh;
 }
-
-.notFound img {
+.nftImg img{
+    width: 30rem;
+    height: 34rem;
+}
+    .notFound img {
     margin-top: 2rem;
     width: 30rem;
 }

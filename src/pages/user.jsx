@@ -117,7 +117,7 @@ export function User() {
                                                         })}>
                         <img src={value["metadata"]["image"]} alt=""/>
                         <div className={style.card_heading}>
-                            {value["title"]}
+                            {value['metadata']["productName"]}
                         </div>
                         <div className={style.card_sub}>
                             Product Name

@@ -39,7 +39,12 @@ export function Validate() {
     function validateWarranty() {
         getWarranty().then(r => r);
     }
-
+    function toDate(timestamp) {
+        var date = new Date(timestamp * 1000);
+        return date.getDate() +
+            "-" + (date.getMonth() + 1) +
+            "-" + date.getFullYear()
+    }
     useEffect(() => {
         if (Object.keys(warranty).length !== 0) {
             console.log(warranty)
@@ -60,13 +65,13 @@ export function Validate() {
                                 <div className="label">Product Name:</div>
                                 <div className="label">Product Serial:</div>
                                 <div className="label">Company Name:</div>
-                                <div className="label">Seller Address:</div>
+                                <div className="label">Expire Date:</div>
                             </div>
                             <div className="infoVal">
-                                <div className="value">2123</div>
-                                <div className="value">2123</div>
-                                <div className="value">2123</div>
-                                <div className="value">2123</div>
+                                <div className="value">{warranty['metadata']['productName']}</div>
+                                <div className="value">{warranty['metadata']['productSerial']}</div>
+                                <div className="value">{warranty['metadata']['companyName']}</div>
+                                <div className="value">{toDate(warranty['metadata']['expireDate'])}</div>
                             </div>
 
                         </div>

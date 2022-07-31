@@ -1,13 +1,18 @@
 import style from '../assets/css/mintNft.module.css';
 import img from "../assets/common/img/user.png";
 import {useMetaMask} from "../hooks/useMetaMask";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {contracts} from "../scripts/contractScript";
 import DatePicker from "react-datepicker";
 import bg from '../assets/common/img/hm1.png';
 import "react-datepicker/dist/react-datepicker.css";
+import IPFS from "ipfs-http-client";
+import {urlSource} from "ipfs-http-client";
+import {storage} from "../scripts/server";
+import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 
 export function MintNFT() {
+
     const {accountAddress} = useMetaMask();
     const [value, setValue] = useState();
     const [err, setErr] = useState(false);
@@ -17,6 +22,8 @@ export function MintNFT() {
     const [uploadW, setUploadw] = useState(0);
     const [startDate, setStartDate] = useState();
     const [purchaseDate, setPurchasedDate] = useState();
+    const [file, setFile] = useState(null);
+    const [url, setURL] = useState("");
 
     function handleChange(event) {
         setErr(false)
@@ -28,55 +35,126 @@ export function MintNFT() {
         })));
     }
 
+    function handleImage(e) {
+        if (e.target.files[0])
+            setFile(e.target.files[0]);
+    }
 
     async function handleSubmit(event) {
         setUploading(true);
         event.preventDefault();
         console.log(value)
+        setUploadw(10)
+        const path = `/images/${file.name}`;
+        const ref1 = ref(storage, path)
+        const uploadImage = uploadBytesResumable(ref1, file);
+        uploadImage.on('state_changed',
+            (snapshot) => {
+                setUploadw(30)
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        break;
+                }
+            },
+            (error) => {
+                // Handle unsuccessful uploads
+            },
+            () => {
+                getDownloadURL(uploadImage.snapshot.ref).then((downloadLink) => {
+                    setUploadw(50)
+                    let data = {
+                        productName: value["productName"],
+                        companyName: value["companyName"],
+                        expireDate: toTimestamp(startDate),
+                        dateOfPurchase: toTimestamp(purchaseDate),
+                        productSerial: value["productSerial"],
+                        image: downloadLink
+                    };
+                    const metadata = {
+                        contentType: 'application/json',
+                    };
+                    var storageRef = ref(storage, '/metaData/metaData.json');
+                    var blob = new Blob([JSON.stringify(data)], {type: "application/json"})
+                    const uploadTask = uploadBytesResumable(storageRef, blob, metadata);
+
+                    uploadTask.on('state_changed',
+                        (snapshot) => {
+                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            console.log('Upload is ' + progress + '% done');
+                            switch (snapshot.state) {
+                                case 'paused':
+                                    console.log('Upload is paused');
+                                    break;
+                                case 'running':
+                                    console.log('Upload is running');
+                                    break;
+                            }
+                        },
+                        (error) => {
+                            console.log(error)
+                        },
+                        () => {
+                            setUploadw(70)
+                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                console.log('File available at', downloadURL);
+                                mintWarranty(downloadURL).then((val1) => {
+                                    console.log(Object.keys(val1));
+                                    setUploadw(80);
+                                    val1.wait().then(val => {
+                                        console.log(val);
+                                        setUploadw(100);
+                                        setSuccess(true)
+                                        setUploading(false);
+                                    })
+                                }).catch(e => {
+                                    setErr(true)
+                                    switch (e.code) {
+                                        case 4001:
+                                            setMsg(e.message)
+                                            break;
+                                        case "UNSUPPORTED_OPERATION":
+                                            setMsg("Please Enter Correct Address")
+                                            break;
+                                        case "INVALID_ARGUMENT":
+                                            setMsg('Please Enter Correct Address')
+                                            break;
+                                        case "NETWORK_ERROR":
+                                            if (e.event === "changed") {
+                                                setMsg("Network Changed")
+                                            }
+                                            break;
+                                        case "UNPREDICTABLE_GAS_LIMIT":
+                                            console.log(e.error.message)
+                                            switch (e.error.message) {
+                                                case "execution reverted: Seller is not Authorized Seller":
+                                                    setMsg('Only Authorized people can mint warranty')
+                                                    break;
+
+                                            }
+                                            break;
+                                        default:
+                                            setMsg("Something went wrong")
+                                    }
+                                    console.log(Object.keys(e));
+                                    console.log(Object.values(e));
+                                })
+                            });
+                        }
+                    );
+                });
+            }
+        );
+
+
         try {
             getMetaData().then(val => {
                 console.log(val)
-                mintWarranty(val).then((val1) => {
-                    console.log(Object.keys(val1));
-                    setUploadw(50);
-                    val1.wait().then(val => {
-                        console.log(val);
-                        setUploadw(100);
-                        setSuccess(true)
-                        setUploading(false);
-                    })
-                }).catch(e => {
-                    setErr(true)
-                    switch (e.code) {
-                        case 4001:
-                            setMsg(e.message)
-                            break;
-                        case "UNSUPPORTED_OPERATION":
-                            setMsg("Please Enter Correct Address")
-                            break;
-                        case "INVALID_ARGUMENT":
-                            setMsg('Please Enter Correct Address')
-                            break;
-                        case "NETWORK_ERROR":
-                            if (e.event === "changed") {
-                                setMsg("Network Changed")
-                            }
-                            break;
-                        case "UNPREDICTABLE_GAS_LIMIT":
-                            console.log(e.error.message)
-                            switch (e.error.message) {
-                                case "execution reverted: Seller is not Authorized Seller":
-                                    setMsg('Only Authorized people can mint warranty')
-                                    break;
-
-                            }
-                            break;
-                        default:
-                            setMsg("Something went wrong")
-                    }
-                    console.log(Object.keys(e));
-                    console.log(Object.values(e));
-                })
 
             });
         } catch (e) {
@@ -88,19 +166,19 @@ export function MintNFT() {
     }
 
     async function getMetaData() {
-
         return "https://firebasestorage.googleapis.com/v0/b/personaltestingbase.appspot.com/o/Metadata%2Fnft-metadata.json?alt=media&token=5f49d058-4de8-4e77-b670-64ccfd8d9e33";
     }
 
     function toTimestamp(strDate) {
-        var datum = Date.parse(strDate);
+        console.log(strDate)
+        const datum = new Date(strDate);
+        console.log(datum)
         return datum / 1000;
     }
 
     async function mintWarranty(metaData) {
         let time = toTimestamp(startDate)
-        console.log(time)
-        return await contracts.mintWarrantyNFT(value['userAddress'], metaData, time);
+        return await contracts.mintWarrantyNFT(value['userAddress'], metaData, time, '');
     }
 
     return (
@@ -170,9 +248,9 @@ export function MintNFT() {
                     <form className={style.form} data-aos="fade-up" data-aos-duration="800"
                           data-aos-delay="300"
                           data-aos-easing="ease">
-                        <div className={style.colForm}>
-                            <input type="text" name="username" placeholder={'Enter Username'} onChange={handleChange}/>
-                        </div>
+                        {/*<div className={style.colForm}>*/}
+                        {/*    <input type="text" name="username" placeholder={'Enter Username'} onChange={handleChange}/>*/}
+                        {/*</div>*/}
                         <div className={style.colForm}>
                             <input type="text" name="userAddress" placeholder={'Enter User Address'}
                                    onChange={handleChange}/>
@@ -180,18 +258,25 @@ export function MintNFT() {
                         <div className={style.colForm}>
                             <input type="text" name="productName" placeholder={'Enter Product Name'}
                                    onChange={handleChange}/>
+                            <input type="text" name="productSerial" placeholder={'Enter Product Serial No'}
+                                   onChange={handleChange}/>
                         </div>
                         <div className={style.colForm}>
                             <input type="text" name="companyName" placeholder={"Enter Company Name"}
                                    onChange={handleChange}/>
                         </div>
                         <div className={style.colForm}>
-                            <DatePicker selected={purchaseDate} onChange={(date) => setPurchasedDate(date)}
+                            <DatePicker selected={purchaseDate} onChange={(date) => {
+                                console.log(toTimestamp(purchaseDate))
+                                setPurchasedDate(date);
+                            }}
                                         placeholderText="Purchase date"/>
                             <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}
                                         placeholderText="Expire date"/>
                         </div>
-
+                        <div className={style.colForm}>
+                            <input type="file" name="image" id="" onChange={handleImage}/>
+                        </div>
                         <div className={style.colForm}>
                             <div className={style.mintWarranty}
                                  style={upload ? {background: 'none', border: "1px solid #4f9cc0"} : {}}

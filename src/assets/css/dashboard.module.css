@@ -25,9 +25,14 @@
 
 }
 
+.showNft {
+    width: 30rem;
+    height: 40rem;
+}
 
 .showNft img {
-    width: 50rem;
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
 }
 
@@ -161,7 +166,8 @@
     color: green;
     font-family: var(--roboto);
 }
-.err{
+
+.err {
     margin-top: 2rem;
     text-align: left;
     padding: 1rem 0;

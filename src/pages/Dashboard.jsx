@@ -4,6 +4,7 @@ import {contracts} from "../scripts/contractScript";
 import {useEffect, useState} from "react";
 import {useMetaMask} from "../hooks/useMetaMask";
 import {useLocation} from "react-router-dom";
+import {parse} from "dotenv";
 
 export function Dashboard() {
     const {accountAddress} = useMetaMask();
@@ -15,6 +16,7 @@ export function Dashboard() {
     const [upload, setUpload] = useState(false);
 
     async function transferWarranty() {
+
         setLoad(false)
         contracts.transferFrom(accountAddress, tranferAddress, parseInt(location.state.data['id']['_hex'], 16))
             .then(val => {
@@ -54,6 +56,13 @@ export function Dashboard() {
             }
 
         });
+    }
+
+    function toDate(timestamp) {
+        var date = new Date(timestamp * 1000);
+        return date.getDate() +
+            "-" + (date.getMonth() + 1) +
+            "-" + date.getFullYear()
     }
 
     return (<>
@@ -111,27 +120,29 @@ export function Dashboard() {
                         </div>
                         <div className={style.infoCol}>
                             <div className={style.label}>Product Name:</div>
-                            <div className={style.value}>Macbookia 's</div>
+                            <div className={style.value}>{location.state.data['metadata']['productName']}</div>
                         </div>
                         <div className={style.infoCol}>
                             <div className={style.label}>Product Serial:</div>
-                            <div className={style.value}>123456</div>
+                            <div className={style.value}>{location.state.data['metadata']['productSerial']}</div>
                         </div>
                         <div className={style.infoCol}>
                             <div className={style.label}>Company Name:</div>
-                            <div className={style.value}>Chunu bolpuria</div>
+                            <div className={style.value}>{location.state.data['metadata']['companyName']}</div>
                         </div>
                         <div className={style.infoCol}>
                             <div className={style.label}>Purchase Date:</div>
-                            <div className={style.value}>2 mina baad</div>
+                            <div
+                                className={style.value}>{toDate(location.state.data['metadata']['dateOfPurchase'])}</div>
                         </div>
                         <div className={style.infoCol}>
                             <div className={style.label}>Expire Date:</div>
-                            <div className={style.value}>2 mina baad</div>
+                            <div
+                                className={style.value}>{toDate(parseInt(location.state.data['expireDate']['_hex'], 16))}</div>
                         </div>
                         <div className={style.infoCol}>
                             <div className={style.label}>Seller Address:</div>
-                            <div className={style.value}>0X11513132123132131311311313213131132</div>
+                            <div className={style.value}>{location.state.data['seller']}</div>
                         </div>
                     </div>
                     <div className={style.btnContainer}>
